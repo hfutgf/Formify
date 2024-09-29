@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+
+# Compiled TypeScript
+/dist/
+
+# Editor-specific files
+.vscode/
+*.code-workspace
+
+# Local environment variables
+.env
+
+# Logs
+*.log
+
+# Dependency directories
+.pnpm/
+.pnpm-debug.log
+yarn-error.log
+
+# TypeScript configuration
+tsconfig.json
+tsconfig.tsbuildinfo
+
+# Nodemon configuration
+nodemon.json
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

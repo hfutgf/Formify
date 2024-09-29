@@ -1,0 +1,36 @@
+{
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "no-console": "warn",
+        "eslint-plugin-import/no-unresolved": "off",
+        "no-debugger": "error",
+        "no-duplicate-imports": "error",
+        "no-else-return": "error",
+        "no-alert": "error",
+        "no-catch-shadow": "error",
+        "import/named": "off",
+        "import/no-cycle": "error",
+        "import/no-self-import": "error",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    }
+}
