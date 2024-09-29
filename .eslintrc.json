@@ -11,7 +11,6 @@
         "eslint-plugin-import/no-unresolved": "off",
         "no-debugger": "error",
         "no-duplicate-imports": "error",
-        "no-else-return": "error",
         "no-alert": "error",
         "no-catch-shadow": "error",
         "import/named": "off",
