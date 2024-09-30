@@ -1,9 +1,11 @@
 import { Users } from '@prisma/client';
 import { UserQuery } from '../user/query.js';
 import jwt from 'jsonwebtoken';
+import { ILoginBody } from '@src/types/auth.types.js';
+import argon from 'argon2';
 
 export class AuthQuery extends UserQuery {
-    JWT_SECRET: string;
+    private JWT_SECRET: string;
     constructor() {
         super();
         this.JWT_SECRET = process.env.JWT_SECRET!;
@@ -18,7 +20,26 @@ export class AuthQuery extends UserQuery {
         };
     };
 
-    issueToken = (userId: number) => {
+    login = async (body: ILoginBody) => {
+        const { password, ...user } = (await this.getByEmail(
+            body.email
+        )) as Users;
+        if (!user) {
+            throw new Error('User not found!');
+        }
+        const verifyPassword = argon.verify(password, body.password);
+        if (!verifyPassword) {
+            throw new Error('Passwrod is wrong!');
+        }
+        const tokens = this.issueToken(user.id);
+
+        return {
+            user,
+            ...tokens,
+        };
+    };
+
+    private issueToken = (userId: number) => {
         const data = {
             id: userId,
         };
