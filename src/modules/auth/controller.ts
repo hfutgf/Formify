@@ -1,7 +1,7 @@
 import { Users } from '@prisma/client';
 import { Request, Response } from 'express';
 import { AuthQuery } from './query.js';
-import Joi from 'joi';
+import Joi, { ref } from 'joi';
 
 export class AuthController {
     REFRESH_TOKEN = 'refreshToken';
@@ -26,7 +26,8 @@ export class AuthController {
             });
             return res.status(201).json(data);
         } catch (error) {
-            return res.status(500).json(error);
+            const e = error as Error;
+            return res.status(500).json({ message: e.message });
         }
     };
 
@@ -40,7 +41,8 @@ export class AuthController {
             });
             return res.status(200).json(data);
         } catch (error) {
-            return res.status(500).json(error);
+            const e = error as Error;
+            return res.status(500).json({ message: e.message });
         }
     };
 
@@ -49,10 +51,27 @@ export class AuthController {
             fullName: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string()
-                .min(8)
-                .message('Minimum password length is 8!')
+                .min(6)
+                .message('Minimum password length is 6!')
                 .required(),
         });
         return schema.validate(data);
+    };
+
+    getAccessToken = (req: Request, res: Response): any => {
+        try {
+            const body = req.body as { refreshToken: string };
+            const { accessToken, refreshToken } = this.authQuery.getAccessToken(
+                body.refreshToken
+            );
+            res.cookie(this.REFRESH_TOKEN, refreshToken, {
+                httpOnly: true,
+                maxAge: 3 * 86400,
+            });
+            return res.status(200).json({ accessToken });
+        } catch (error) {
+            const e = error as Error;
+            return res.status(400).json({ message: e.message });
+        }
     };
 }

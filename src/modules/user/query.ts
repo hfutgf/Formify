@@ -15,7 +15,7 @@ export class UserQuery extends Common {
     create = async (body: Users) => {
         const isExists = await this.getByEmail(body.email);
         if (isExists) {
-            throw new Error('User already exists!');
+            throw new Error('User already exists! Please create a different email address.');
         }
         const hashPassword = await argon.hash(body.password);
         const user = await this.prisma.users.create({
