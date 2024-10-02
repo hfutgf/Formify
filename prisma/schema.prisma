@@ -2,9 +2,14 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres.ogwlrkjxbbsziujjsqvo:hfutgfgit77@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
 }
 
 enum Role {
@@ -14,7 +19,7 @@ enum Role {
 
 model Users {
   id       Int    @id @default(autoincrement())
-  fullName String @map("full_name")
+  fullName String
   email    String @unique
   password String
   role     Role   @default(user)

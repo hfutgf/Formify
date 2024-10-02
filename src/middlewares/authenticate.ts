@@ -7,7 +7,7 @@ const authenticate = async (
     next: NextFunction
 ): Promise<any> => {
     try {
-        const { authorization } = req.headers;
+        const authorization = req.headers.authorization;
         if (!authorization) {
             return res
                 .status(401)

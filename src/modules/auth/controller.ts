@@ -21,7 +21,7 @@ export class AuthController {
             const { refreshToken, ...data } =
                 await this.authQuery.register(body);
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
-                httpOnly: true,
+                httpOnly: false,
                 maxAge: 3 * 86400,
             });
             return res.status(201).json(data);
@@ -36,7 +36,7 @@ export class AuthController {
             const body = req.body;
             const { refreshToken, ...data } = await this.authQuery.login(body);
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
-                httpOnly: true,
+                httpOnly: false,
                 maxAge: 3 * 86400,
             });
             return res.status(200).json(data);

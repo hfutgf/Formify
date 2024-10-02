@@ -12,7 +12,7 @@ export class AuthQuery extends UserQuery {
     }
 
     register = async (body: Users) => {
-        const { password, ...user } = await this.create(body);
+        const { password, ...user } = (await this.create(body))!;
         const tokens = this.issueToken(user.id);
         return {
             user,
@@ -21,7 +21,7 @@ export class AuthQuery extends UserQuery {
     };
 
     login = async (body: ILoginBody) => {
-        const user = (await this.getByEmail(body.email)) as Users;
+        const user = await this.getByEmail(body.email);
         if (!user) {
             throw new Error('User not found!');
         }
@@ -42,10 +42,10 @@ export class AuthQuery extends UserQuery {
             id: userId,
         };
         const refreshToken = jwt.sign(data, this.JWT_SECRET, {
-            expiresIn: '1d',
+            expiresIn: '7d',
         });
         const accessToken = jwt.sign(data, this.JWT_SECRET, {
-            expiresIn: '3h',
+            expiresIn: '1d',
         });
 
         return {
