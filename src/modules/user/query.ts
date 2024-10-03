@@ -1,22 +1,19 @@
 import { Users } from '@prisma/client';
-import { Common } from '../common/query.js';
+import { CommonQuery } from '../common/query.js';
 import argon from 'argon2';
 
-export class UserQuery extends Common {
+export class UserQuery extends CommonQuery {
     getByEmail = async (email: string) => {
-        const { data, error } = await this.supabase
+        const { data } = await this.supabase
             .from('users')
             .select('*')
             .eq('email', email)
             .single();
-        if (error) {
-            console.log(error);
-        }
         return data ? data : null;
     };
 
     create = async (body: Users): Promise<Users | null> => {
-        const { data: isExists } = await this.getByEmail(body.email);
+        const isExists = await this.getByEmail(body.email);
         if (isExists) {
             throw new Error(
                 'User already exists! Please create a different email address.'
@@ -27,12 +24,13 @@ export class UserQuery extends Common {
         const { data, error } = await this.supabase
             .from('users')
             .insert({ ...body, password: hashPassword })
-            .select('*');
-
+            .select('*')
+            .single();
+        console.log(data);
         if (error) {
             console.log(error);
             throw new Error(`${error}`);
         }
-        return data ? data[0] : null;
+        return data ? data : null;
     };
 }

@@ -1,8 +1,9 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
+import IRequest from '@src/types/request.type.js';
 
 const authenticate = async (
-    req: Request,
+    req: IRequest,
     res: Response,
     next: NextFunction
 ): Promise<any> => {
@@ -19,13 +20,17 @@ const authenticate = async (
                 .status(401)
                 .json({ message: 'Token is missing or invalid' });
         }
-        jwt.verify(accessToken, process.env.JWT_SECRET!, (err, decoded) => {
-            if (err) {
-                return res.status(403).json({ message: 'Invalid token' });
+        jwt.verify(
+            accessToken,
+            process.env.JWT_SECRET!,
+            (err, decoded: JwtPayload | any) => {
+                if (err) {
+                    return res.status(403).json({ message: 'Invalid token' });
+                }
+                req.userId = decoded.id;
+                next();
             }
-
-            next();
-        });
+        );
     } catch (error) {
         const e = error as Error;
         return res.status(500).json({ message: e.message });

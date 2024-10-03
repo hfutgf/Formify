@@ -1,7 +1,7 @@
 import { Users } from '@prisma/client';
 import { Request, Response } from 'express';
 import { AuthQuery } from './query.js';
-import Joi, { ref } from 'joi';
+import Joi from 'joi';
 
 export class AuthController {
     REFRESH_TOKEN = 'refreshToken';
