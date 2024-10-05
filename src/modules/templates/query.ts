@@ -1,12 +1,13 @@
-import { Template } from '@prisma/client';
+import { Role, Template, Users } from '@prisma/client';
 import { CommonQuery } from '../common/query.js';
+import { UserQuery } from '../user/query.js';
 
-export class TemplatesQuery extends CommonQuery {
+export class TemplatesQuery extends UserQuery {
     constructor() {
         super();
     }
 
-    create = async (body: Template, authorId: number) => {
+    createTemplate = async (body: Template, authorId: number) => {
         const { data, error } = await this.supabase
             .from('templates')
             .insert({ ...body, authorId })
@@ -18,5 +19,66 @@ export class TemplatesQuery extends CommonQuery {
             throw new Error('Error creating template');
         }
         return data;
+    };
+
+    findAllTemplate = async () => {
+        const { data } = await this.supabase.from('templates').select('*');
+        return data ? data : null;
+    };
+
+    findOneTemplate = async (templateId: number) => {
+        const { data } = await this.supabase
+            .from('templates')
+            .select('*')
+            .eq('id', templateId)
+            .single();
+        return data ? data : null;
+    };
+
+    updateTemplate = async (
+        templateId: number,
+        userId: number,
+        body: Template
+    ) => {
+        const user = (await this.getById(userId)) as Users;
+        const template = (await this.findOneTemplate(templateId)) as Template;
+
+        if (user.role === Role.admin || userId === template.authorId) {
+            const { data } = await this.supabase
+                .from('templates')
+                .update(body)
+                .eq('id', templateId)
+                .select('*')
+                .single();
+
+            return data ? data : null;
+        }
+        return null;
+    };
+
+    removeTemplate = async (templateId: number, userId: number) => {
+        const user = (await this.getById(userId)) as Users;
+        const template = (await this.findOneTemplate(templateId)) as Template;
+
+        if (user.role === Role.admin || userId === template.authorId) {
+            const { data } = await this.supabase
+                .from('templates')
+                .delete()
+                .eq('id', templateId)
+                .select('*')
+                .single();
+
+            return data ? data : null;
+        }
+        return null;
+    };
+
+    searchTemplate = async (title: string) => {
+        const { data } = await this.supabase
+            .from('templates')
+            .select('*')
+            .ilike('title', `%${title}%`);
+
+        return data ? data : null;
     };
 }

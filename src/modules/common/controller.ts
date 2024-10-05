@@ -5,6 +5,9 @@ import storage from '@src/config/firebase.config.js';
 export class CommonController {
     uploadToFireBase = async (req: Request, folder: string) => {
         try {
+            if (!req.file) {
+                return null;
+            }
             const dateTime = this.giveCurrentDateTime();
             const storageRef = ref(
                 storage,

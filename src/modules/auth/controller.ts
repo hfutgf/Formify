@@ -54,6 +54,7 @@ export class AuthController {
                 .min(6)
                 .message('Minimum password length is 6!')
                 .required(),
+            role: Joi.string(),
         });
         return schema.validate(data);
     };

@@ -12,6 +12,15 @@ export class UserQuery extends CommonQuery {
         return data ? data : null;
     };
 
+    getById = async (id: number) => {
+        const { data } = await this.supabase
+            .from('users')
+            .select('*')
+            .eq('id', Number(id))
+            .single();
+        return data ? data : null;
+    };
+
     create = async (body: Users): Promise<Users | null> => {
         const isExists = await this.getByEmail(body.email);
         if (isExists) {
@@ -26,7 +35,6 @@ export class UserQuery extends CommonQuery {
             .insert({ ...body, password: hashPassword })
             .select('*')
             .single();
-        console.log(data);
         if (error) {
             console.log(error);
             throw new Error(`${error}`);
