@@ -1,6 +1,7 @@
 import { Role, Template, Users } from '@prisma/client';
 import { CommonQuery } from '../common/query.js';
 import { UserQuery } from '../user/query.js';
+import { modelNames } from '@src/config/models.config.js';
 
 export class TemplatesQuery extends UserQuery {
     constructor() {
@@ -9,7 +10,7 @@ export class TemplatesQuery extends UserQuery {
 
     createTemplate = async (body: Template, authorId: number) => {
         const { data, error } = await this.supabase
-            .from('templates')
+            .from(modelNames.TEMPLATES)
             .insert({ ...body, authorId })
             .select('*')
             .single();
@@ -22,13 +23,15 @@ export class TemplatesQuery extends UserQuery {
     };
 
     findAllTemplate = async () => {
-        const { data } = await this.supabase.from('templates').select('*');
+        const { data } = await this.supabase
+            .from(modelNames.TEMPLATES)
+            .select('*');
         return data ? data : null;
     };
 
     findOneTemplate = async (templateId: number) => {
         const { data } = await this.supabase
-            .from('templates')
+            .from(modelNames.TEMPLATES)
             .select('*')
             .eq('id', templateId)
             .single();
@@ -45,7 +48,7 @@ export class TemplatesQuery extends UserQuery {
 
         if (user.role === Role.admin || userId === template.authorId) {
             const { data } = await this.supabase
-                .from('templates')
+                .from(modelNames.TEMPLATES)
                 .update(body)
                 .eq('id', templateId)
                 .select('*')
@@ -62,7 +65,7 @@ export class TemplatesQuery extends UserQuery {
 
         if (user.role === Role.admin || userId === template.authorId) {
             const { data } = await this.supabase
-                .from('templates')
+                .from(modelNames.TEMPLATES)
                 .delete()
                 .eq('id', templateId)
                 .select('*')
@@ -75,7 +78,7 @@ export class TemplatesQuery extends UserQuery {
 
     searchTemplate = async (title: string) => {
         const { data } = await this.supabase
-            .from('templates')
+            .from(modelNames.TEMPLATES)
             .select('*')
             .ilike('title', `%${title}%`);
 

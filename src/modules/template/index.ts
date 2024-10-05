@@ -1,7 +1,7 @@
 import { RequestHandler, Router } from 'express';
 import { TemplaesController } from './controller.js';
 import multer from 'multer';
-import routes from '@src/config/routes.js';
+import routes from '@src/config/routes.confg.js';
 import authenticate from '@src/middlewares/authenticate.js';
 
 const router = Router();

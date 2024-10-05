@@ -22,6 +22,13 @@ enum TypeLikes {
   dislike
 }
 
+enum QuestionType {
+  TEXT
+  MULTICHOICE
+  CHECKBOX
+  RADIO
+}
+
 model Users {
   id           Int            @id @default(autoincrement())
   fullName     String
@@ -59,16 +66,16 @@ model Template {
 }
 
 model Question {
-  id           Int       @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   templateId   Int
-  questionType String
+  questionType QuestionType
   title        String
-  description  String?   @db.Text
+  description  String?      @db.Text
   order        Int
-  isVisible    Boolean   @default(true)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime? @updatedAt
-  template     Template  @relation(fields: [templateId], references: [id])
+  isVisible    Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime?    @updatedAt
+  template     Template     @relation(fields: [templateId], references: [id])
   answers      Answer[]
 
   @@map("questions")

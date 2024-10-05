@@ -4,6 +4,9 @@ CREATE TYPE "Role" AS ENUM ('user', 'admin');
 -- CreateEnum
 CREATE TYPE "TypeLikes" AS ENUM ('like', 'dislike');
 
+-- CreateEnum
+CREATE TYPE "QuestionType" AS ENUM ('TEXT', 'MULTICHOICE', 'CHECKBOX', 'RADIO');
+
 -- CreateTable
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
@@ -36,7 +39,7 @@ CREATE TABLE "templates" (
 CREATE TABLE "questions" (
     "id" SERIAL NOT NULL,
     "templateId" INTEGER NOT NULL,
-    "questionType" TEXT NOT NULL,
+    "questionType" "QuestionType" NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
     "order" INTEGER NOT NULL,

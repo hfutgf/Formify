@@ -1,11 +1,12 @@
 import { Users } from '@prisma/client';
 import { CommonQuery } from '../common/query.js';
 import argon from 'argon2';
+import { modelNames } from '@src/config/models.config.js';
 
 export class UserQuery extends CommonQuery {
     getByEmail = async (email: string) => {
         const { data } = await this.supabase
-            .from('users')
+            .from(modelNames.USERS)
             .select('*')
             .eq('email', email)
             .single();
@@ -14,7 +15,7 @@ export class UserQuery extends CommonQuery {
 
     getById = async (id: number) => {
         const { data } = await this.supabase
-            .from('users')
+            .from(modelNames.USERS)
             .select('*')
             .eq('id', Number(id))
             .single();
@@ -31,7 +32,7 @@ export class UserQuery extends CommonQuery {
         const hashPassword = await argon.hash(body.password);
 
         const { data, error } = await this.supabase
-            .from('users')
+            .from(modelNames.USERS)
             .insert({ ...body, password: hashPassword })
             .select('*')
             .single();
