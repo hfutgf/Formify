@@ -2,6 +2,7 @@ import { Response, Request } from 'express';
 import { CommonController } from '../common/controller.js';
 import { TemplatesQuery } from './query.js';
 import IRequest from '@src/types/request.type.js';
+import { Theme } from '@prisma/client';
 
 export class TemplaesController extends CommonController {
     templatesQuery = new TemplatesQuery();
@@ -26,7 +27,8 @@ export class TemplaesController extends CommonController {
 
     findAll = async (req: Request, res: Response) => {
         try {
-            const templates = await this.templatesQuery.findAllTemplate();
+            const templates =
+                await this.templatesQuery.findTemplatesForThemes();
             return res.status(200).json(templates);
         } catch (error) {
             const e = error as Error;
@@ -102,5 +104,10 @@ export class TemplaesController extends CommonController {
             const e = error as Error;
             return res.status(500).json(e.message);
         }
+    };
+
+    getThemes = async (req: Request, res: Response) => {
+        const themes = Object.values(Theme);
+        return res.status(200).json(themes);
     };
 }

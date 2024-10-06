@@ -8,6 +8,7 @@ const routes = {
     UPDATE_TEMPLATE: '/templates/:templateId',
     REMOVE_TEMPLATE: '/templates/:templateId',
     SEARCH_TEMPLATES: '/templates-search',
+    THEMES: '/template-themes',
     CREATE_QUESTOIN: '/questions/:templateId',
     GET_QUESTIONS: '/questions/:templateId',
     UPDATE_QUESTION: '/questions/:questionId',

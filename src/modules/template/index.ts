@@ -38,4 +38,6 @@ router
 
 router.route(routes.SEARCH_TEMPLATES).get(templatesController.search as any);
 
+router.route(routes.THEMES).get(templatesController.getThemes as any);
+
 export default router;

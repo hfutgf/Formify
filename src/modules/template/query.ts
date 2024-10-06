@@ -1,4 +1,4 @@
-import { Role, Template, Users } from '@prisma/client';
+import { Role, Template, Theme, Users } from '@prisma/client';
 import { CommonQuery } from '../common/query.js';
 import { UserQuery } from '../user/query.js';
 import { modelNames } from '@src/config/models.config.js';
@@ -22,11 +22,22 @@ export class TemplatesQuery extends UserQuery {
         return data;
     };
 
-    findAllTemplate = async () => {
-        const { data } = await this.supabase
-            .from(modelNames.TEMPLATES)
-            .select('*');
-        return data ? data : null;
+    findTemplatesForThemes = async () => {
+        const themes = Object.values(Theme);
+        const templates = [];
+        for (let i = 0; i < themes.length; i++) {
+            const { data } = await this.supabase
+                .from(modelNames.TEMPLATES)
+                .select('*')
+                .eq('theme', themes[i]);
+            if (data?.length) {
+                templates.push({
+                    theme: themes[i],
+                    data,
+                });
+            }
+        }
+        return templates;
     };
 
     findOneTemplate = async (templateId: number) => {
@@ -46,7 +57,7 @@ export class TemplatesQuery extends UserQuery {
         const user = (await this.getById(userId)) as Users;
         const template = (await this.findOneTemplate(templateId)) as Template;
 
-        if (user.role === Role.admin || userId === template.authorId) {
+        if (user.role === Role.ADMIN || userId === template.authorId) {
             const { data } = await this.supabase
                 .from(modelNames.TEMPLATES)
                 .update(body)
@@ -63,7 +74,7 @@ export class TemplatesQuery extends UserQuery {
         const user = (await this.getById(userId)) as Users;
         const template = (await this.findOneTemplate(templateId)) as Template;
 
-        if (user.role === Role.admin || userId === template.authorId) {
+        if (user.role === Role.ADMIN || userId === template.authorId) {
             const { data } = await this.supabase
                 .from(modelNames.TEMPLATES)
                 .delete()

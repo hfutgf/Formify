@@ -1,11 +1,14 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('user', 'admin');
+CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "TypeLikes" AS ENUM ('like', 'dislike');
+CREATE TYPE "TypeLikes" AS ENUM ('LIKE', 'DISLIKE');
 
 -- CreateEnum
 CREATE TYPE "QuestionType" AS ENUM ('TEXT', 'MULTICHOICE', 'CHECKBOX', 'RADIO');
+
+-- CreateEnum
+CREATE TYPE "Theme" AS ENUM ('SPORT', 'PERSONAL', 'WORK', 'STUDY', 'TRAVEL', 'OTHER', 'HEALTH', 'ENTERTAINMENT', 'FINANCE', 'EDUCATION', 'TECHNOLOGY', 'FAMILY', 'FITNESS', 'MUSIC');
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -13,7 +16,7 @@ CREATE TABLE "users" (
     "fullName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT 'user',
+    "role" "Role" NOT NULL DEFAULT 'USER',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
 
@@ -26,7 +29,7 @@ CREATE TABLE "templates" (
     "authorId" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
-    "theme" TEXT,
+    "theme" "Theme" NOT NULL,
     "imageUrl" TEXT,
     "isPublic" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
