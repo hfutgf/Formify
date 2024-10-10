@@ -5,7 +5,7 @@ CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 CREATE TYPE "TypeLikes" AS ENUM ('LIKE', 'DISLIKE');
 
 -- CreateEnum
-CREATE TYPE "QuestionType" AS ENUM ('TEXT', 'MULTICHOICE', 'CHECKBOX', 'RADIO');
+CREATE TYPE "QuestionType" AS ENUM ('TEXT', 'MULTICHOICE', 'RADIO');
 
 -- CreateEnum
 CREATE TYPE "Theme" AS ENUM ('SPORT', 'PERSONAL', 'WORK', 'STUDY', 'TRAVEL', 'OTHER', 'HEALTH', 'ENTERTAINMENT', 'FINANCE', 'EDUCATION', 'TECHNOLOGY', 'FAMILY', 'FITNESS', 'MUSIC');
@@ -104,6 +104,15 @@ CREATE TABLE "comment_likes" (
     CONSTRAINT "comment_likes_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "options" (
+    "id" SERIAL NOT NULL,
+    "questionId" INTEGER NOT NULL,
+    "text" TEXT,
+
+    CONSTRAINT "options_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
@@ -148,3 +157,6 @@ ALTER TABLE "comment_likes" ADD CONSTRAINT "comment_likes_userId_fkey" FOREIGN K
 
 -- AddForeignKey
 ALTER TABLE "comment_likes" ADD CONSTRAINT "comment_likes_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "comments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "options" ADD CONSTRAINT "options_questionId_fkey" FOREIGN KEY ("questionId") REFERENCES "questions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

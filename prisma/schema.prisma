@@ -25,7 +25,6 @@ enum TypeLikes {
 enum QuestionType {
   TEXT
   MULTICHOICE
-  CHECKBOX
   RADIO
 }
 
@@ -94,6 +93,7 @@ model Question {
   updatedAt    DateTime?    @updatedAt
   template     Template     @relation(fields: [templateId], references: [id])
   answers      Answer[]
+  options      Option[] 
 
   @@map("questions")
 }
@@ -156,4 +156,13 @@ model CommentLike {
 
   @@unique([userId, commentId])
   @@map("comment_likes")
+}
+
+model Option {
+  id         Int      @id @default(autoincrement())
+  questionId Int
+  text       String? 
+  question   Question @relation(fields: [questionId], references: [id])
+
+  @@map("options")
 }

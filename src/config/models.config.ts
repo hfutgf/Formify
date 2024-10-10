@@ -7,4 +7,5 @@ export const modelNames = {
     ANSWERS: 'answers',
     TEMPLATE_LIKES: 'template_likes',
     COMMENT_LIKES: 'comment_likes',
+    OPTIONS:"options"
 };

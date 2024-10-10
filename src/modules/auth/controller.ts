@@ -5,6 +5,8 @@ import Joi from 'joi';
 
 export class AuthController {
     REFRESH_TOKEN = 'refreshToken';
+    ACCESS_TOKEN = 'accessToken';
+
     authQuery: AuthQuery;
     constructor() {
         this.authQuery = new AuthQuery();
@@ -22,7 +24,7 @@ export class AuthController {
                 await this.authQuery.register(body);
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
                 httpOnly: false,
-                maxAge: 3 * 86400,
+                maxAge: 7 * 86400 * 1000,
             });
             return res.status(201).json(data);
         } catch (error) {
@@ -37,9 +39,20 @@ export class AuthController {
             const { refreshToken, ...data } = await this.authQuery.login(body);
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
                 httpOnly: false,
-                maxAge: 3 * 86400,
+                maxAge: 7 * 86400 * 1000,
             });
             return res.status(200).json(data);
+        } catch (error) {
+            const e = error as Error;
+            return res.status(500).json({ message: e.message });
+        }
+    };
+
+    logout = async (req: Request, res: Response) => {
+        try {
+            res.clearCookie(this.REFRESH_TOKEN);
+            res.clearCookie(this.ACCESS_TOKEN);
+            return res.status(200).json('User is logout!');
         } catch (error) {
             const e = error as Error;
             return res.status(500).json({ message: e.message });

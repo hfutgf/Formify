@@ -110,4 +110,17 @@ export class TemplaesController extends CommonController {
         const themes = Object.values(Theme);
         return res.status(200).json(themes);
     };
+
+    removeImage = async (req: Request, res: Response) => {
+        try {
+            const { templateId } = req.params;
+            const tempalte = await this.templatesQuery.removeTemplateImage(
+                Number(templateId)
+            );
+            return res.status(200).json(tempalte);
+        } catch (error) {
+            const e = error as Error;
+            return res.status(500).json(e.message);
+        }
+    };
 }

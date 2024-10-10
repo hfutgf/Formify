@@ -29,7 +29,8 @@ export class TemplatesQuery extends UserQuery {
             const { data } = await this.supabase
                 .from(modelNames.TEMPLATES)
                 .select('*')
-                .eq('theme', themes[i]);
+                .eq('theme', themes[i])
+                .eq('isPublic', true);
             if (data?.length) {
                 templates.push({
                     theme: themes[i],
@@ -60,11 +61,10 @@ export class TemplatesQuery extends UserQuery {
         if (user.role === Role.ADMIN || userId === template.authorId) {
             const { data } = await this.supabase
                 .from(modelNames.TEMPLATES)
-                .update(body)
+                .update({ ...body, updatedAt: new Date() })
                 .eq('id', templateId)
                 .select('*')
                 .single();
-
             return data ? data : null;
         }
         return null;
@@ -92,6 +92,17 @@ export class TemplatesQuery extends UserQuery {
             .from(modelNames.TEMPLATES)
             .select('*')
             .ilike('title', `%${title}%`);
+
+        return data ? data : null;
+    };
+
+    removeTemplateImage = async (templateId: number) => {
+        const { data } = await this.supabase
+            .from(modelNames.TEMPLATES)
+            .update({ imageUrl: null })
+            .eq('id', templateId)
+            .select('*')
+            .single();
 
         return data ? data : null;
     };

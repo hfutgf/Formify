@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { QuestionQuery } from './query.js';
+import { QuestionType } from '@prisma/client';
 
 export class QuestionController {
     questionQuery = new QuestionQuery();
@@ -64,6 +65,59 @@ export class QuestionController {
             return question
                 ? res.status(200).json(question)
                 : res.status(400).json(question);
+        } catch (error) {
+            const e = error as Error;
+            return res.status(500).json(e.message);
+        }
+    };
+
+    createOption = async (req: Request, res: Response) => {
+        try {
+            const { questionId } = req.params;
+            const body = req.body;
+            const option = await this.questionQuery.createQuestionOption({
+                ...body,
+                questionId,
+            });
+            return res.status(201).json(option);
+        } catch (error) {
+            const e = error as Error;
+            return res.status(500).json(e.message);
+        }
+    };
+
+    getOptions = async (req: Request, res: Response) => {
+        try {
+            const { questionId } = req.params;
+            const options = await this.questionQuery.getOptionsByQuestionId(
+                Number(questionId)
+            );
+            return res.status(201).json(options);
+        } catch (error) {
+            const e = error as Error;
+            return res.status(500).json(e.message);
+        }
+    };
+
+    getQuestionTypes = async (req: Request, res: Response) => {
+        try {
+            const types = Object.values(QuestionType);
+            return res.status(200).json(types);
+        } catch (error) {
+            const e = error as Error;
+            return res.status(500).json(e.message);
+        }
+    };
+
+    updateOptions = async (req: Request, res: Response) => {
+        try {
+            const { optionId } = req.params;
+            const body = req.body;
+            const option = await this.questionQuery.updateOption(
+                Number(optionId),
+                body
+            );
+            return res.status(200).json(option);
         } catch (error) {
             const e = error as Error;
             return res.status(500).json(e.message);

@@ -1,5 +1,10 @@
-import { Request, Response } from 'express';
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import { Request } from 'express';
+import {
+    ref,
+    getDownloadURL,
+    uploadBytesResumable,
+    getStorage,
+} from 'firebase/storage';
 import storage from '@src/config/firebase.config.js';
 
 export class CommonController {
@@ -46,4 +51,13 @@ export class CommonController {
         const dateTime = date + ' ' + time;
         return dateTime;
     };
+
+    // removeImage = async (folder:string) => {
+    //     try {
+    //         const fileRef= ref(storage, `${folder}/`)
+    //     } catch (error) {
+    //         const e = error as Error;
+    //         return e.message;
+    //     }
+    // };
 }

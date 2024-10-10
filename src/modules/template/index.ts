@@ -40,4 +40,11 @@ router.route(routes.SEARCH_TEMPLATES).get(templatesController.search as any);
 
 router.route(routes.THEMES).get(templatesController.getThemes as any);
 
+router
+    .route(routes.REMOVE_TEMPLATE_IMG)
+    .put(
+        authenticate as RequestHandler,
+        templatesController.removeImage as any
+    );
+
 export default router;
