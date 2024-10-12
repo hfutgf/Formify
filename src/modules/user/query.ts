@@ -5,20 +5,26 @@ import { modelNames } from '@src/config/models.config.js';
 
 export class UserQuery extends CommonQuery {
     getByEmail = async (email: string) => {
-        const { data } = await this.supabase
+        const { data, error } = await this.supabase
             .from(modelNames.USERS)
             .select('*')
             .eq('email', email)
             .single();
+        if (error) {
+            throw new Error(error.message);
+        }
         return data ? data : null;
     };
 
     getById = async (id: number) => {
-        const { data } = await this.supabase
+        const { data, error } = await this.supabase
             .from(modelNames.USERS)
             .select('*')
             .eq('id', Number(id))
             .single();
+        if (error) {
+            throw new Error(error.message);
+        }
         return data ? data : null;
     };
 
@@ -37,8 +43,7 @@ export class UserQuery extends CommonQuery {
             .select('*')
             .single();
         if (error) {
-            console.log(error);
-            throw new Error(`${error}`);
+            throw new Error(error.message);
         }
         return data ? data : null;
     };

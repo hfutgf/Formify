@@ -16,8 +16,7 @@ export class TemplatesQuery extends UserQuery {
             .single();
 
         if (error) {
-            console.log(error);
-            throw new Error('Error creating template');
+            throw new Error(error.message);
         }
         return data;
     };
@@ -26,7 +25,7 @@ export class TemplatesQuery extends UserQuery {
         const themes = Object.values(Theme);
         const templates = [];
         for (let i = 0; i < themes.length; i++) {
-            const { data } = await this.supabase
+            const { data, error } = await this.supabase
                 .from(modelNames.TEMPLATES)
                 .select('*')
                 .eq('theme', themes[i])
@@ -37,16 +36,22 @@ export class TemplatesQuery extends UserQuery {
                     data,
                 });
             }
+            if (error) {
+                throw new Error(error.message);
+            }
         }
         return templates;
     };
 
     findOneTemplate = async (templateId: number) => {
-        const { data } = await this.supabase
+        const { data, error } = await this.supabase
             .from(modelNames.TEMPLATES)
             .select('*')
             .eq('id', templateId)
             .single();
+        if (error) {
+            throw new Error(error.message);
+        }
         return data ? data : null;
     };
 
@@ -59,12 +64,15 @@ export class TemplatesQuery extends UserQuery {
         const template = (await this.findOneTemplate(templateId)) as Template;
 
         if (user.role === Role.ADMIN || userId === template.authorId) {
-            const { data } = await this.supabase
+            const { data, error } = await this.supabase
                 .from(modelNames.TEMPLATES)
                 .update({ ...body, updatedAt: new Date() })
                 .eq('id', templateId)
                 .select('*')
                 .single();
+            if (error) {
+                throw new Error(error.message);
+            }
             return data ? data : null;
         }
         return null;
@@ -75,35 +83,42 @@ export class TemplatesQuery extends UserQuery {
         const template = (await this.findOneTemplate(templateId)) as Template;
 
         if (user.role === Role.ADMIN || userId === template.authorId) {
-            const { data } = await this.supabase
+            const { data, error } = await this.supabase
                 .from(modelNames.TEMPLATES)
                 .delete()
                 .eq('id', templateId)
                 .select('*')
                 .single();
-
+            if (error) {
+                throw new Error(error.message);
+            }
+            console.log(error);
             return data ? data : null;
         }
         return null;
     };
 
     searchTemplate = async (title: string) => {
-        const { data } = await this.supabase
+        const { data, error } = await this.supabase
             .from(modelNames.TEMPLATES)
             .select('*')
             .ilike('title', `%${title}%`);
-
+        if (error) {
+            throw new Error(error.message);
+        }
         return data ? data : null;
     };
 
     removeTemplateImage = async (templateId: number) => {
-        const { data } = await this.supabase
+        const { data, error } = await this.supabase
             .from(modelNames.TEMPLATES)
             .update({ imageUrl: null })
             .eq('id', templateId)
             .select('*')
             .single();
-
+        if (error) {
+            throw new Error(error.message);
+        }
         return data ? data : null;
     };
 }

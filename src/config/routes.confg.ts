@@ -2,6 +2,7 @@ const routes = {
     REGISTER: '/auth/register',
     LOGIN: '/auth/login',
     LOGOUT: '/auth/logout',
+    GET_USER:"/users/:userId",
     GET_ACCESS_TOKEN: '/auth/get-access-token',
     CREATE_TEMPLATE: '/templates',
     GET_TEMPLATES: '/templates',
@@ -18,7 +19,8 @@ const routes = {
     CREATE_OPTION: '/options/:questionId',
     GET_OPTIONS: '/options/:questionId',
     GET_QUESTION_TYPES: '/question-types',
-    UPDATE_OPTION:"/options/:optionId"
+    UPDATE_OPTION:"/options/:optionId",
+    DELETE_OPTION:"/options/:optionId",
 };
 
 export default routes;

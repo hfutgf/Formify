@@ -123,4 +123,17 @@ export class QuestionController {
             return res.status(500).json(e.message);
         }
     };
+
+    removeOption = async (req: Request, res: Response) => {
+        try {
+            const { optionId } = req.params;
+            const option = await this.questionQuery.removeOption(
+                Number(optionId)
+            );
+            return res.status(200).json(option);
+        } catch (error) {
+            const e = error as Error;
+            return res.status(500).json(e.message);
+        }
+    };
 }

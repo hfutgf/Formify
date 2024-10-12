@@ -51,4 +51,10 @@ router
         questionController.updateOptions as any
     );
 
+router
+    .route(routes.DELETE_OPTION)
+    .delete(
+        authenticate as RequestHandler,
+        questionController.removeOption as any
+    );
 export default router;
