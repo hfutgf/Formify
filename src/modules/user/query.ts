@@ -13,7 +13,7 @@ export class UserQuery extends CommonQuery {
         if (error) {
             throw new Error(error.message);
         }
-        return data ? data : null;
+        return data;
     };
 
     getById = async (id: number) => {
@@ -25,7 +25,7 @@ export class UserQuery extends CommonQuery {
         if (error) {
             throw new Error(error.message);
         }
-        return data ? data : null;
+        return data;
     };
 
     create = async (body: Users): Promise<Users | null> => {
@@ -45,6 +45,6 @@ export class UserQuery extends CommonQuery {
         if (error) {
             throw new Error(error.message);
         }
-        return data ? data : null;
+        return data;
     };
 }

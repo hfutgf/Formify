@@ -11,14 +11,14 @@ export class QuestionQuery extends CommonQuery {
         const questions = await this.getQuestionsByTemplateId(templateId);
         const { data, error } = await this.supabase
             .from(modelNames.QUESTIONS)
-            .insert({ ...body, templateId, order: questions?.length })
+            .insert({ ...body, templateId, order: questions.length + 1 })
             .select('*')
             .single();
         if (error) {
             throw new Error(error.message);
         }
 
-        return data ? data : null;
+        return data;
     };
 
     getQuestionsByTemplateId = async (templateId: number) => {
@@ -30,7 +30,7 @@ export class QuestionQuery extends CommonQuery {
             throw new Error(error.message);
         }
 
-        return data ? data : null;
+        return data;
     };
 
     updatedQuestion = async (questionId: number, body: Question) => {
@@ -44,7 +44,26 @@ export class QuestionQuery extends CommonQuery {
             throw new Error(error.message);
         }
 
-        return data ? data : null;
+        return data;
+    };
+
+    updateQuestionsOrders = async (ids: number[]) => {
+        const questions: Question[] = [];
+
+        for (let i = 0; i < ids.length; i++) {
+            const { data, error } = await this.supabase
+                .from(modelNames.QUESTIONS)
+                .update({ order: i + 1, createdAt: new Date() })
+                .eq('id', ids[i])
+                .select('*')
+                .single();
+            questions.push(data);
+
+            if (error) {
+                throw new Error(error.message);
+            }
+        }
+        return questions;
     };
 
     removeQuestion = async (questionId: number) => {
@@ -58,19 +77,32 @@ export class QuestionQuery extends CommonQuery {
             throw new Error(error.message);
         }
 
-        return data ? data : null;
+        return data;
     };
 
     createQuestionOption = async (body: Option) => {
+        const {
+            data: getOptionsByQuestionId,
+            error: errorOptionsByQuestionId,
+        } = await this.supabase
+            .from(modelNames.OPTIONS)
+            .select('*')
+            .eq('questionId', body.questionId);
+
+        if (errorOptionsByQuestionId) {
+            throw new Error(errorOptionsByQuestionId.message);
+        }
+
         const { data, error } = await this.supabase
             .from(modelNames.OPTIONS)
-            .insert(body)
+            .insert({ ...body, order: getOptionsByQuestionId.length + 1 })
             .select('*')
             .single();
+
         if (error) {
             throw new Error(error.message);
         }
-        return data ? data : null;
+        return data;
     };
 
     getOptionsByQuestionId = async (questionId: number) => {
@@ -81,7 +113,7 @@ export class QuestionQuery extends CommonQuery {
         if (error) {
             throw new Error(error.message);
         }
-        return data ? data : null;
+        return data;
     };
 
     updateOption = async (optionId: number, body: Question) => {
@@ -94,7 +126,27 @@ export class QuestionQuery extends CommonQuery {
         if (error) {
             throw new Error(error.message);
         }
-        return data ? data : null;
+        return data;
+    };
+
+    updateOptionsOrders = async (ids: number[], questionId: number) => {
+        const updates = ids.map((id, index) => ({
+            id,
+            order: index + 1,
+            questionId,
+            createdAt: new Date(),
+        }));
+
+        const { data, error } = await this.supabase
+            .from(modelNames.OPTIONS)
+            .upsert(updates, { onConflict: 'id' })
+            .select('*');
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return data;
     };
 
     removeOption = async (optionId: number) => {
@@ -108,6 +160,6 @@ export class QuestionQuery extends CommonQuery {
             throw new Error(error.message);
         }
 
-        return data ? data : null;
+        return data;
     };
 }

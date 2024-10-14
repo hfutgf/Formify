@@ -2,7 +2,7 @@ const routes = {
     REGISTER: '/auth/register',
     LOGIN: '/auth/login',
     LOGOUT: '/auth/logout',
-    GET_USER:"/users/:userId",
+    GET_USER: '/users/:userId',
     GET_ACCESS_TOKEN: '/auth/get-access-token',
     CREATE_TEMPLATE: '/templates',
     GET_TEMPLATES: '/templates',
@@ -15,12 +15,14 @@ const routes = {
     CREATE_QUESTOIN: '/questions/:templateId',
     GET_QUESTIONS: '/questions/:templateId',
     UPDATE_QUESTION: '/questions/:questionId',
+    UPDATE_QUESTIONS_ORDERS: '/questions-order',
     DELETE_QUESTION: '/questions/:questionId',
     CREATE_OPTION: '/options/:questionId',
     GET_OPTIONS: '/options/:questionId',
     GET_QUESTION_TYPES: '/question-types',
-    UPDATE_OPTION:"/options/:optionId",
-    DELETE_OPTION:"/options/:optionId",
+    UPDATE_OPTION: '/options/:optionId',
+    DELETE_OPTION: '/options/:optionId',
+    UPDATE_OPTIONS_ORDERS: '/options-orders/:questionId',
 };
 
 export default routes;

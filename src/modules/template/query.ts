@@ -52,7 +52,7 @@ export class TemplatesQuery extends UserQuery {
         if (error) {
             throw new Error(error.message);
         }
-        return data ? data : null;
+        return data;
     };
 
     updateTemplate = async (
@@ -73,7 +73,7 @@ export class TemplatesQuery extends UserQuery {
             if (error) {
                 throw new Error(error.message);
             }
-            return data ? data : null;
+            return data;
         }
         return null;
     };
@@ -93,7 +93,7 @@ export class TemplatesQuery extends UserQuery {
                 throw new Error(error.message);
             }
             console.log(error);
-            return data ? data : null;
+            return data;
         }
         return null;
     };
@@ -106,7 +106,7 @@ export class TemplatesQuery extends UserQuery {
         if (error) {
             throw new Error(error.message);
         }
-        return data ? data : null;
+        return data;
     };
 
     removeTemplateImage = async (templateId: number) => {
@@ -119,6 +119,6 @@ export class TemplatesQuery extends UserQuery {
         if (error) {
             throw new Error(error.message);
         }
-        return data ? data : null;
+        return data;
     };
 }

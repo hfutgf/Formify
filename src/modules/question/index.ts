@@ -52,6 +52,20 @@ router
     );
 
 router
+    .route(routes.UPDATE_OPTIONS_ORDERS)
+    .put(
+        authenticate as RequestHandler,
+        questionController.updateOptionsOrders as any
+    );
+
+router
+    .route(routes.UPDATE_QUESTIONS_ORDERS)
+    .put(
+        authenticate as RequestHandler,
+        questionController.updateQuestionsOrders as any
+    );
+
+router
     .route(routes.DELETE_OPTION)
     .delete(
         authenticate as RequestHandler,

@@ -56,6 +56,18 @@ export class QuestionController {
         }
     };
 
+    updateQuestionsOrders = async (req: Request, res: Response) => {
+        try {
+            const { ids } = req.body;
+            const questions =
+                await this.questionQuery.updateQuestionsOrders(ids);
+            return res.status(200).json(questions);
+        } catch (error) {
+            const e = error as Error;
+            return res.status(500).json(e.message);
+        }
+    };
+
     remove = async (req: Request, res: Response) => {
         try {
             const { questionId } = req.params;
@@ -118,6 +130,21 @@ export class QuestionController {
                 body
             );
             return res.status(200).json(option);
+        } catch (error) {
+            const e = error as Error;
+            return res.status(500).json(e.message);
+        }
+    };
+
+    updateOptionsOrders = async (req: Request, res: Response) => {
+        try {
+            const { ids } = req.body;
+            const { questionId } = req.params;
+            const options = await this.questionQuery.updateOptionsOrders(
+                ids,
+                Number(questionId)
+            );
+            return res.status(200).json(options);
         } catch (error) {
             const e = error as Error;
             return res.status(500).json(e.message);
