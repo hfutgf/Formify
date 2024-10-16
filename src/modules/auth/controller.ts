@@ -11,29 +11,28 @@ export class AuthController {
     constructor() {
         this.authQuery = new AuthQuery();
     }
-    register = async (req: Request, res: Response): Promise<any> => {
+    register = async (req: Request, res: Response) => {
         try {
             const { error } = this.validateUser(req.body as Users);
             if (error) {
-                return res
-                    .status(400)
-                    .json({ message: error.details[0].message });
+                res.status(400).json({ message: error.details[0].message });
             }
             const body = req.body as Users;
+
             const { refreshToken, ...data } =
                 await this.authQuery.register(body);
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
                 httpOnly: false,
                 maxAge: 7 * 86400 * 1000,
             });
-            return res.status(201).json(data);
+            res.status(201).json(data);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json({ message: e.message });
+            res.status(500).json({ message: e.message });
         }
     };
 
-    login = async (req: Request, res: Response): Promise<any> => {
+    login = async (req: Request, res: Response) => {
         try {
             const body = req.body;
             const { refreshToken, ...data } = await this.authQuery.login(body);
@@ -41,10 +40,10 @@ export class AuthController {
                 httpOnly: false,
                 maxAge: 7 * 86400 * 1000,
             });
-            return res.status(200).json(data);
+            res.status(200).json(data);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json({ message: e.message });
+            res.status(500).json({ message: e.message });
         }
     };
 
@@ -52,10 +51,10 @@ export class AuthController {
         try {
             res.clearCookie(this.REFRESH_TOKEN);
             res.clearCookie(this.ACCESS_TOKEN);
-            return res.status(200).json('User is logout!');
+            res.status(200).json('User is logout!');
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json({ message: e.message });
+            res.status(500).json({ message: e.message });
         }
     };
 
@@ -82,10 +81,10 @@ export class AuthController {
                 httpOnly: true,
                 maxAge: 3 * 86400,
             });
-            return res.status(200).json({ accessToken });
+            res.status(200).json({ accessToken });
         } catch (error) {
             const e = error as Error;
-            return res.status(400).json({ message: e.message });
+            res.status(400).json({ message: e.message });
         }
     };
 }

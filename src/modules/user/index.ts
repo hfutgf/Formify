@@ -6,6 +6,6 @@ import routes from '@src/config/routes.confg.js';
 const router = Router();
 const userController = new UserController();
 
-router.route(routes.GET_USER).get(userController.getUserById as any);
+router.route(routes.GET_USER).get(userController.getUserById);
 
 export default router;

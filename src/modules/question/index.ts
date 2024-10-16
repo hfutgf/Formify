@@ -8,67 +8,53 @@ const router = Router();
 const questionController = new QuestionController();
 
 router
-    .route(routes.CREATE_QUESTOIN)
-    .post(authenticate as RequestHandler, questionController.create as any);
+    .route(routes.CRUD_QUESTION + '/:templateId')
+    .post(authenticate as RequestHandler, questionController.create);
 
 router
-    .route(routes.GET_QUESTIONS)
-    .get(
-        authenticate as RequestHandler,
-        questionController.getAllByTemplateId as any
-    );
+    .route(routes.CRUD_QUESTION + '/:templateId')
+    .get(authenticate as RequestHandler, questionController.getAllByTemplateId);
 
 router
-    .route(routes.UPDATE_QUESTION)
-    .put(authenticate as RequestHandler, questionController.updated as any);
+    .route(routes.CRUD_QUESTION + '/:templateId')
+    .put(authenticate as RequestHandler, questionController.updated);
 
 router
-    .route(routes.DELETE_QUESTION)
-    .delete(authenticate as RequestHandler, questionController.remove as any);
-
-router
-    .route(routes.CREATE_OPTION)
-    .post(
-        authenticate as RequestHandler,
-        questionController.createOption as any
-    );
-
-router
-    .route(routes.GET_OPTIONS)
-    .get(authenticate as RequestHandler, questionController.getOptions as any);
+    .route(routes.CRUD_QUESTION + '/:questionId')
+    .delete(authenticate as RequestHandler, questionController.remove);
 
 router
     .route(routes.GET_QUESTION_TYPES)
-    .get(
-        authenticate as RequestHandler,
-        questionController.getQuestionTypes as any
-    );
-
-router
-    .route(routes.UPDATE_OPTION)
-    .put(
-        authenticate as RequestHandler,
-        questionController.updateOptions as any
-    );
-
-router
-    .route(routes.UPDATE_OPTIONS_ORDERS)
-    .put(
-        authenticate as RequestHandler,
-        questionController.updateOptionsOrders as any
-    );
+    .get(authenticate as RequestHandler, questionController.getQuestionTypes);
 
 router
     .route(routes.UPDATE_QUESTIONS_ORDERS)
     .put(
         authenticate as RequestHandler,
-        questionController.updateQuestionsOrders as any
+        questionController.updateQuestionsOrders
     );
 
 router
-    .route(routes.DELETE_OPTION)
-    .delete(
+    .route(routes.CRUD_OPTIONS + '/:questionId')
+    .post(authenticate as RequestHandler, questionController.createOption);
+
+router
+    .route(routes.CRUD_OPTIONS + '/:questionId')
+    .get(authenticate as RequestHandler, questionController.getOptions);
+
+router
+    .route(routes.CRUD_OPTIONS + '/:questionId')
+    .delete(authenticate as RequestHandler, questionController.removeOption);
+
+router
+    .route(routes.CRUD_OPTIONS + '/:optionId')
+    .put(authenticate as RequestHandler, questionController.updateOptions);
+
+router
+    .route(routes.UPDATE_OPTIONS_ORDERS)
+    .put(
         authenticate as RequestHandler,
-        questionController.removeOption as any
+        questionController.updateOptionsOrders
     );
+
 export default router;

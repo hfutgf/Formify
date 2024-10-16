@@ -3,11 +3,13 @@ import { CommonController } from '../common/controller.js';
 import { TemplatesQuery } from './query.js';
 import IRequest from '@src/types/request.type.js';
 import { Theme } from '@prisma/client';
+import { FormQuery } from '../form/form.query.js';
 
 export class TemplaesController extends CommonController {
     templatesQuery = new TemplatesQuery();
+    formQuery = new FormQuery();
 
-    create = async (req: IRequest, res: Response): Promise<any> => {
+    create = async (req: IRequest, res: Response) => {
         try {
             const imageUrl = await this.uploadToFireBase(req, 'templates');
             let body = { ...req.body, imageUrl };
@@ -18,7 +20,8 @@ export class TemplaesController extends CommonController {
                 body,
                 req.userId
             );
-            return res.status(201).json(template);
+
+            res.status(201).json(template);
         } catch (error) {
             const e = error as Error;
             res.status(500).json(e.message);
@@ -29,7 +32,7 @@ export class TemplaesController extends CommonController {
         try {
             const templates =
                 await this.templatesQuery.findTemplatesForThemes();
-            return res.status(200).json(templates);
+            res.status(200).json(templates);
         } catch (error) {
             const e = error as Error;
             res.status(500).json(e.message);
@@ -42,14 +45,14 @@ export class TemplaesController extends CommonController {
             const template = await this.templatesQuery.findOneTemplate(
                 Number(templateId)
             );
-            return res.status(200).json(template);
+            res.status(200).json(template);
         } catch (error) {
             const e = error as Error;
             res.status(500).json(e.message);
         }
     };
 
-    update = async (req: IRequest, res: Response): Promise<any> => {
+    update = async (req: IRequest, res: Response) => {
         try {
             const { templateId } = req.params;
             const imageUrl = await this.uploadToFireBase(req, 'templates');
@@ -64,16 +67,16 @@ export class TemplaesController extends CommonController {
                 body
             );
             if (!updatedTemplate) {
-                return res.status(400).json(updatedTemplate);
+                res.status(400).json(updatedTemplate);
             }
-            return res.status(200).json(updatedTemplate);
+            res.status(200).json(updatedTemplate);
         } catch (error) {
             const e = error as Error;
             res.status(500).json(e.message);
         }
     };
 
-    remove = async (req: IRequest, res: Response): Promise<any> => {
+    remove = async (req: IRequest, res: Response) => {
         try {
             const { templateId } = req.params;
             const userId = req.userId;
@@ -82,10 +85,7 @@ export class TemplaesController extends CommonController {
                 userId
             );
 
-            if (!removeTemplate) {
-                return res.status(400).json(removeTemplate);
-            }
-            return res.status(200).json(removeTemplate);
+            res.status(200).json(removeTemplate);
         } catch (error) {
             const e = error as Error;
             res.status(500).json(e.message);
@@ -97,18 +97,18 @@ export class TemplaesController extends CommonController {
             const { title } = req.query as { title: string };
             const template = await this.templatesQuery.searchTemplate(title);
             if (!template) {
-                return res.status(400).json(template);
+                res.status(400).json(template);
             }
-            return res.status(200).json(template);
+            res.status(200).json(template);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
     getThemes = async (req: Request, res: Response) => {
         const themes = Object.values(Theme);
-        return res.status(200).json(themes);
+        res.status(200).json(themes);
     };
 
     removeImage = async (req: Request, res: Response) => {
@@ -117,10 +117,10 @@ export class TemplaesController extends CommonController {
             const tempalte = await this.templatesQuery.removeTemplateImage(
                 Number(templateId)
             );
-            return res.status(200).json(tempalte);
+            res.status(200).json(tempalte);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 }

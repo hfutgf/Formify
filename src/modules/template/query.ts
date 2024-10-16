@@ -8,17 +8,19 @@ export class TemplatesQuery extends UserQuery {
         super();
     }
 
-    createTemplate = async (body: Template, authorId: number) => {
+    createTemplate = async (
+        body: Template,
+        authorId: number
+    ): Promise<Template> => {
         const { data, error } = await this.supabase
             .from(modelNames.TEMPLATES)
             .insert({ ...body, authorId })
-            .select('*')
-            .single();
+            .select('*');
 
         if (error) {
             throw new Error(error.message);
         }
-        return data;
+        return data[0];
     };
 
     findTemplatesForThemes = async () => {
@@ -47,12 +49,11 @@ export class TemplatesQuery extends UserQuery {
         const { data, error } = await this.supabase
             .from(modelNames.TEMPLATES)
             .select('*')
-            .eq('id', templateId)
-            .single();
+            .eq('id', templateId);
         if (error) {
             throw new Error(error.message);
         }
-        return data;
+        return data[0];
     };
 
     updateTemplate = async (
@@ -68,12 +69,11 @@ export class TemplatesQuery extends UserQuery {
                 .from(modelNames.TEMPLATES)
                 .update({ ...body, updatedAt: new Date() })
                 .eq('id', templateId)
-                .select('*')
-                .single();
+                .select('*');
             if (error) {
                 throw new Error(error.message);
             }
-            return data;
+            return data[0];
         }
         return null;
     };
@@ -87,13 +87,11 @@ export class TemplatesQuery extends UserQuery {
                 .from(modelNames.TEMPLATES)
                 .delete()
                 .eq('id', templateId)
-                .select('*')
-                .single();
+                .select('*');
             if (error) {
                 throw new Error(error.message);
             }
-            console.log(error);
-            return data;
+            return data[0];
         }
         return null;
     };
@@ -114,11 +112,10 @@ export class TemplatesQuery extends UserQuery {
             .from(modelNames.TEMPLATES)
             .update({ imageUrl: null })
             .eq('id', templateId)
-            .select('*')
-            .single();
+            .select('*');
         if (error) {
             throw new Error(error.message);
         }
-        return data;
+        return data[0];
     };
 }

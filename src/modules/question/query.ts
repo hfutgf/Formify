@@ -7,18 +7,30 @@ export class QuestionQuery extends CommonQuery {
         super();
     }
 
+    getQuesitonById = async (id: number): Promise<Question> => {
+        const { data, error } = await this.supabase
+            .from(modelNames.QUESTIONS)
+            .select('*')
+            .eq('id', id);
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return data[0];
+    };
+
     createQuestion = async (templateId: number, body: Question) => {
         const questions = await this.getQuestionsByTemplateId(templateId);
         const { data, error } = await this.supabase
             .from(modelNames.QUESTIONS)
             .insert({ ...body, templateId, order: questions.length + 1 })
-            .select('*')
-            .single();
+            .select('*');
         if (error) {
             throw new Error(error.message);
         }
 
-        return data;
+        return data[0];
     };
 
     getQuestionsByTemplateId = async (templateId: number) => {
@@ -38,13 +50,12 @@ export class QuestionQuery extends CommonQuery {
             .from(modelNames.QUESTIONS)
             .update(body)
             .eq('id', questionId)
-            .select('*')
-            .single();
+            .select('*');
         if (error) {
             throw new Error(error.message);
         }
 
-        return data;
+        return data[0];
     };
 
     updateQuestionsOrders = async (ids: number[]) => {
@@ -55,10 +66,10 @@ export class QuestionQuery extends CommonQuery {
                 .from(modelNames.QUESTIONS)
                 .update({ order: i + 1, createdAt: new Date() })
                 .eq('id', ids[i])
-                .select('*')
-                .single();
-            questions.push(data);
-
+                .select('*');
+            if (data?.length) {
+                questions.push(data[0]);
+            }
             if (error) {
                 throw new Error(error.message);
             }
@@ -71,13 +82,12 @@ export class QuestionQuery extends CommonQuery {
             .from(modelNames.QUESTIONS)
             .delete()
             .eq('id', questionId)
-            .select('*')
-            .single();
+            .select('*');
         if (error) {
             throw new Error(error.message);
         }
 
-        return data;
+        return data[0];
     };
 
     createQuestionOption = async (body: Option) => {
@@ -96,13 +106,12 @@ export class QuestionQuery extends CommonQuery {
         const { data, error } = await this.supabase
             .from(modelNames.OPTIONS)
             .insert({ ...body, order: getOptionsByQuestionId.length + 1 })
-            .select('*')
-            .single();
+            .select('*');
 
         if (error) {
             throw new Error(error.message);
         }
-        return data;
+        return data[0];
     };
 
     getOptionsByQuestionId = async (questionId: number) => {
@@ -121,12 +130,12 @@ export class QuestionQuery extends CommonQuery {
             .from(modelNames.OPTIONS)
             .update(body)
             .eq('id', optionId)
-            .select('*')
-            .single();
+            .select('*');
+
         if (error) {
             throw new Error(error.message);
         }
-        return data;
+        return data[0];
     };
 
     updateOptionsOrders = async (ids: number[], questionId: number) => {
@@ -154,12 +163,11 @@ export class QuestionQuery extends CommonQuery {
             .from(modelNames.OPTIONS)
             .delete()
             .eq('id', optionId)
-            .select('*')
-            .single();
+            .select('*');
         if (error) {
             throw new Error(error.message);
         }
 
-        return data;
+        return data[0];
     };
 }

@@ -18,11 +18,11 @@ router
         templatesController.create as any
     );
 
-router.route(routes.GET_TEMPLATES).get(templatesController.findAll as any);
+router.route(routes.GET_TEMPLATES).get(templatesController.findAll);
 
 router
     .route(routes.GET_TEMPLATE)
-    .get(authenticate as RequestHandler, templatesController.findOne as any);
+    .get(authenticate as RequestHandler, templatesController.findOne);
 
 router
     .route(routes.UPDATE_TEMPLATE)
@@ -36,15 +36,12 @@ router
     .route(routes.REMOVE_TEMPLATE)
     .delete(authenticate as RequestHandler, templatesController.remove as any);
 
-router.route(routes.SEARCH_TEMPLATES).get(templatesController.search as any);
+router.route(routes.SEARCH_TEMPLATES).get(templatesController.search);
 
-router.route(routes.THEMES).get(templatesController.getThemes as any);
+router.route(routes.THEMES).get(templatesController.getThemes);
 
 router
     .route(routes.REMOVE_TEMPLATE_IMG)
-    .put(
-        authenticate as RequestHandler,
-        templatesController.removeImage as any
-    );
+    .put(authenticate as RequestHandler, templatesController.removeImage);
 
 export default router;

@@ -109,8 +109,19 @@ CREATE TABLE "options" (
     "id" SERIAL NOT NULL,
     "questionId" INTEGER NOT NULL,
     "text" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatetAt" TIMESTAMP(3),
 
     CONSTRAINT "options_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "answer_options" (
+    "id" SERIAL NOT NULL,
+    "answerId" INTEGER NOT NULL,
+    "option" TEXT NOT NULL,
+
+    CONSTRAINT "answer_options_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -160,3 +171,6 @@ ALTER TABLE "comment_likes" ADD CONSTRAINT "comment_likes_commentId_fkey" FOREIG
 
 -- AddForeignKey
 ALTER TABLE "options" ADD CONSTRAINT "options_questionId_fkey" FOREIGN KEY ("questionId") REFERENCES "questions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "answer_options" ADD CONSTRAINT "answer_options_answerId_fkey" FOREIGN KEY ("answerId") REFERENCES "answers"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -2,8 +2,10 @@ const routes = {
     REGISTER: '/auth/register',
     LOGIN: '/auth/login',
     LOGOUT: '/auth/logout',
-    GET_USER: '/users/:userId',
     GET_ACCESS_TOKEN: '/auth/get-access-token',
+
+    GET_USER: '/users/:userId',
+
     CREATE_TEMPLATE: '/templates',
     GET_TEMPLATES: '/templates',
     GET_TEMPLATE: '/templates/:templateId',
@@ -12,17 +14,19 @@ const routes = {
     SEARCH_TEMPLATES: '/templates-search',
     THEMES: '/template-themes',
     REMOVE_TEMPLATE_IMG: '/template-img/:templateId',
-    CREATE_QUESTOIN: '/questions/:templateId',
-    GET_QUESTIONS: '/questions/:templateId',
-    UPDATE_QUESTION: '/questions/:questionId',
+
+    CRUD_QUESTION: '/questions',
     UPDATE_QUESTIONS_ORDERS: '/questions-order',
-    DELETE_QUESTION: '/questions/:questionId',
-    CREATE_OPTION: '/options/:questionId',
-    GET_OPTIONS: '/options/:questionId',
     GET_QUESTION_TYPES: '/question-types',
-    UPDATE_OPTION: '/options/:optionId',
-    DELETE_OPTION: '/options/:optionId',
+
+    CRUD_OPTIONS: '/options',
     UPDATE_OPTIONS_ORDERS: '/options-orders/:questionId',
+
+    CURD_FORM: '/forms',
+
+    CRUD_ANSWER: '/answers',
+
+    CRUD_ANSWER_OPTIONS: '/answer-options',
 };
 
 export default routes;

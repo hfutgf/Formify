@@ -8,24 +8,23 @@ export class UserQuery extends CommonQuery {
         const { data, error } = await this.supabase
             .from(modelNames.USERS)
             .select('*')
-            .eq('email', email)
-            .single();
+            .eq('email', email);
+
         if (error) {
             throw new Error(error.message);
         }
-        return data;
+        return data[0];
     };
 
     getById = async (id: number) => {
         const { data, error } = await this.supabase
             .from(modelNames.USERS)
             .select('*')
-            .eq('id', Number(id))
-            .single();
+            .eq('id', Number(id));
         if (error) {
             throw new Error(error.message);
         }
-        return data;
+        return data[0];
     };
 
     create = async (body: Users): Promise<Users | null> => {
@@ -40,11 +39,11 @@ export class UserQuery extends CommonQuery {
         const { data, error } = await this.supabase
             .from(modelNames.USERS)
             .insert({ ...body, password: hashPassword })
-            .select('*')
-            .single();
+            .select('*');
+
         if (error) {
             throw new Error(error.message);
         }
-        return data;
+        return data[0];
     };
 }

@@ -13,12 +13,12 @@ export class QuestionController {
                 Number(templateId),
                 body
             );
-            return question
+            question
                 ? res.status(200).json(question)
                 : res.status(400).json(question);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
@@ -28,12 +28,12 @@ export class QuestionController {
             const questions = await this.questionQuery.getQuestionsByTemplateId(
                 Number(templateId)
             );
-            return questions
+            questions
                 ? res.status(200).json(questions)
                 : res.status(400).json(questions);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
@@ -47,12 +47,12 @@ export class QuestionController {
                 body
             );
 
-            return question
+            question
                 ? res.status(200).json(question)
                 : res.status(400).json(question);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
@@ -61,10 +61,10 @@ export class QuestionController {
             const { ids } = req.body;
             const questions =
                 await this.questionQuery.updateQuestionsOrders(ids);
-            return res.status(200).json(questions);
+            res.status(200).json(questions);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
@@ -74,12 +74,12 @@ export class QuestionController {
             const question = await this.questionQuery.removeQuestion(
                 Number(questionId)
             );
-            return question
+            question
                 ? res.status(200).json(question)
                 : res.status(400).json(question);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
@@ -91,10 +91,10 @@ export class QuestionController {
                 ...body,
                 questionId,
             });
-            return res.status(201).json(option);
+            res.status(201).json(option);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
@@ -104,20 +104,20 @@ export class QuestionController {
             const options = await this.questionQuery.getOptionsByQuestionId(
                 Number(questionId)
             );
-            return res.status(201).json(options);
+            res.status(201).json(options);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
     getQuestionTypes = async (req: Request, res: Response) => {
         try {
             const types = Object.values(QuestionType);
-            return res.status(200).json(types);
+            res.status(200).json(types);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
@@ -129,10 +129,10 @@ export class QuestionController {
                 Number(optionId),
                 body
             );
-            return res.status(200).json(option);
+            res.status(200).json(option);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
@@ -144,10 +144,10 @@ export class QuestionController {
                 ids,
                 Number(questionId)
             );
-            return res.status(200).json(options);
+            res.status(200).json(options);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 
@@ -157,10 +157,10 @@ export class QuestionController {
             const option = await this.questionQuery.removeOption(
                 Number(optionId)
             );
-            return res.status(200).json(option);
+            res.status(200).json(option);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 }

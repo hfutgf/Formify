@@ -8,10 +8,10 @@ export class UserController {
         try {
             const { userId } = req.params;
             const user = await this.userQuery.getById(Number(userId));
-            return res.status(200).json(user);
+            res.status(200).json(user);
         } catch (error) {
             const e = error as Error;
-            return res.status(500).json(e.message);
+            res.status(500).json(e.message);
         }
     };
 }
