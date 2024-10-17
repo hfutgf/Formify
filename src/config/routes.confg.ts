@@ -4,7 +4,7 @@ const routes = {
     LOGOUT: '/auth/logout',
     GET_ACCESS_TOKEN: '/auth/get-access-token',
 
-    GET_USER: '/users/:userId',
+    CRUD_USER: '/users/:userId',
 
     CREATE_TEMPLATE: '/templates',
     GET_TEMPLATES: '/templates',
