@@ -25,4 +25,17 @@ export class FormController {
             res.status(500).json(e.message);
         }
     };
+
+    getByTemplate = async (req: Request, res: Response) => {
+        try {
+            const { templateId } = req.params;
+            const forms = await this.formQuery.getByTemplate(
+                Number(templateId)
+            );
+            res.status(200).json(forms);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
 }

@@ -4,11 +4,15 @@ import modules from './modules/index.js';
 import { config } from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerOptions from './config/swager.config.js';
 
 config();
 
 const app = express();
 const server = createServer(app);
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use(
     cors({
@@ -18,6 +22,8 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api', modules);
 
 server.listen(3001, () => console.log(`Server started on port: ${3001}`));

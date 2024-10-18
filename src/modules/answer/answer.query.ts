@@ -91,6 +91,18 @@ export class AnswerQuery extends CommonQuery {
         return data[0];
     };
 
+    getAnswersByForm = async (formId: number) => {
+        const { data, error } = await this.supabase
+            .from(modelNames.ANSWERS)
+            .select('*')
+            .eq('formId', formId);
+
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;
+    };
+
     getOptionsByAnswerId = async (answerId: number): Promise<Answer[]> => {
         const { data, error } = await this.supabase
             .from(modelNames.ANSWER_OPTIONS)

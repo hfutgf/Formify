@@ -13,4 +13,8 @@ router
     .route(routes.CURD_FORM + '/:formId')
     .delete(authenticate as RequestHandler, formController.remove);
 
+router
+    .route(routes.CURD_FORM + '/:templateId')
+    .get(authenticate as RequestHandler, formController.getByTemplate);
+
 export default router;

@@ -163,4 +163,17 @@ export class QuestionController {
             res.status(500).json(e.message);
         }
     };
+
+    getQuesiton = async (req: Request, res: Response) => {
+        try {
+            const { questionId } = req.params;
+            const option = await this.questionQuery.getQuesitonById(
+                Number(questionId)
+            );
+            res.status(200).json(option);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
 }

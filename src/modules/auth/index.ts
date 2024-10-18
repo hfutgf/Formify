@@ -2,6 +2,7 @@ import { RequestHandler, Router } from 'express';
 import { AuthController } from './controller.js';
 import routes from '@src/config/routes.confg.js';
 import authenticate from '@src/middlewares/authenticate.js';
+import { Users } from '@prisma/client';
 
 const router = Router();
 const authController = new AuthController();

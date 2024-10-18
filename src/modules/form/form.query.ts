@@ -1,4 +1,4 @@
-import { Form } from '@prisma/client';
+import { Form, Users } from '@prisma/client';
 import { CommonQuery } from '../common/query.js';
 import { modelNames } from '@src/config/models.config.js';
 
@@ -32,5 +32,17 @@ export class FormQuery extends CommonQuery {
             throw new Error(error.message);
         }
         return data[0];
+    };
+
+    getByTemplate = async (templateId: number): Promise<Form[]> => {
+        const { data, error } = await this.supabase
+            .from(modelNames.FORMS)
+            .select('*')
+            .eq('templateId', templateId);
+
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;
     };
 }

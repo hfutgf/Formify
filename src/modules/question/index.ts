@@ -12,6 +12,10 @@ router
     .post(authenticate as RequestHandler, questionController.create);
 
 router
+    .route(routes.CRUD_QUESTION + '/question/:questionId')
+    .get(authenticate as RequestHandler, questionController.getQuesiton);
+
+router
     .route(routes.CRUD_QUESTION + '/:templateId')
     .get(authenticate as RequestHandler, questionController.getAllByTemplateId);
 

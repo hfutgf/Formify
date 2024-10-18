@@ -15,6 +15,19 @@ export class AnswerController {
         }
     };
 
+    getAnswers = async (req: Request, res: Response) => {
+        try {
+            const { formId } = req.params;
+            const answers = await this.answerQuery.getAnswersByForm(
+                Number(formId)
+            );
+            res.status(200).json(answers);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
+
     getOptions = async (req: Request, res: Response) => {
         try {
             const { answerId } = req.params;

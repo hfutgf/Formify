@@ -20,6 +20,10 @@ router
     .put(authenticate as RequestHandler, answerController.updateAnswer);
 
 router
+    .route(routes.CRUD_ANSWER + '/:formId')
+    .get(authenticate as RequestHandler, answerController.getAnswers);
+
+router
     .route(routes.CRUD_ANSWER_OPTIONS + '/:answerId')
     .get(authenticate as RequestHandler, answerController.getOptions);
 
