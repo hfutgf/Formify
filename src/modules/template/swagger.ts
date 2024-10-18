@@ -11,16 +11,18 @@
  *   post:
  *     summary: Create template
  *     tags: [Templates]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               file:
- *                 type: file
- *                 example: Снимок экрана от 2024-09-29 22-40-10.png
+ *                 type: string
+ *                 format: binary
  *               title:
  *                 type: string
  *                 example: Template name
@@ -74,26 +76,28 @@
 /**
  * @swagger
  * /api/templates/{templateId}:
- *   parameters:
+ *   put:
+ *     summary: Update template
+ *     tags: [Templates]
+ *     parameters:
  *       - in: path
  *         name: templateId
  *         required: true
  *         schema:
  *           type: integer
  *         description: The ID of the template to update
- *   put:
- *     summary: Update template
- *     tags: [Templates]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               file:
- *                 type: file
- *                 example: Снимок экрана от 2024-09-29 22-40-10.png
+ *                 type: string
+ *                 format: binary
  *               title:
  *                 type: string
  *                 example: Template name
@@ -105,7 +109,7 @@
  *                 example: OTHER
  *     responses:
  *       200:
- *         description: Successful form retrieval
+ *         description: Successful template update
  *         content:
  *           application/json:
  *             schema:
@@ -157,6 +161,8 @@
  *   delete:
  *     summary: Delete template
  *     tags: [Templates]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Successful form retrieval
@@ -340,6 +346,8 @@
  *   get:
  *     summary: Get a single template by ID
  *     tags: [Templates]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

@@ -11,6 +11,8 @@
  *   post:
  *     summary: Create a new form
  *     tags: [Forms]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -64,6 +66,8 @@
  *   get:
  *     summary: Get all forms
  *     tags: [Forms]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Successfully retrieved forms
@@ -102,6 +106,8 @@
  *   delete:
  *     summary: Delete a form by ID
  *     tags: [Forms]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

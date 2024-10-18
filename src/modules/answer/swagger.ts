@@ -11,6 +11,8 @@
  *   post:
  *     summary: Create a new answer for a specific question in a form
  *     tags: [Answers]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -67,6 +69,8 @@
  *   put:
  *     summary: Update an existing answer
  *     tags: [Answers]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -130,6 +134,8 @@
  *   get:
  *     summary: Get answers by form ID
  *     tags: [Answers]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: formId
  *         in: path
@@ -177,6 +183,8 @@
  *   delete:
  *     summary: Delete an answer by ID
  *     tags: [Answers]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: answerId
  *         in: path
@@ -200,6 +208,8 @@
  *   put:
  *     summary: Update an answer by ID
  *     tags: [Answers]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: answerId
  *         in: path
@@ -246,6 +256,8 @@
  *   get:
  *     summary: Get answer options by answer ID
  *     tags: [Answers]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: answerId
  *         in: path

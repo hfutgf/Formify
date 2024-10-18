@@ -11,6 +11,8 @@
  *   post:
  *     summary: Create a question by template ID
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: templateId
@@ -85,6 +87,8 @@
  *   put:
  *     summary: Update a question by ID
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: questionId
@@ -159,6 +163,8 @@
  *   delete:
  *     summary: Delete a question by ID
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: questionId
@@ -217,6 +223,8 @@
  *   get:
  *     summary: Retrieve questions by template ID
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: templateId
@@ -277,6 +285,8 @@
  *   get:
  *     summary: Retrieve a specific question by ID
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: questionId
@@ -335,6 +345,8 @@
  *   post:
  *     summary: Create an option for a specific question
  *     tags: [Options]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: questionId
@@ -396,6 +408,8 @@
  *   put:
  *     summary: Update a specific option
  *     tags: [Options]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: optionId
@@ -456,6 +470,8 @@
  *   get:
  *     summary: Get all options for a specific question
  *     tags: [Options]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: questionId
@@ -507,6 +523,8 @@
  *   get:
  *     summary: Retrieve available question types
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Successful retrieval of question types
@@ -530,6 +548,8 @@
  *   put:
  *     summary: Update the order of options for a specific question
  *     tags: [Options]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: questionId
@@ -594,6 +614,8 @@
  *   put:
  *     summary: Update the order of questions
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
