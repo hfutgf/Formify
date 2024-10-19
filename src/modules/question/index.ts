@@ -38,27 +38,5 @@ router
         questionController.updateQuestionsOrders
     );
 
-router
-    .route(routes.CRUD_OPTIONS + '/:questionId')
-    .post(authenticate as RequestHandler, questionController.createOption);
-
-router
-    .route(routes.CRUD_OPTIONS + '/:questionId')
-    .get(authenticate as RequestHandler, questionController.getOptions);
-
-router
-    .route(routes.CRUD_OPTIONS + '/:questionId')
-    .delete(authenticate as RequestHandler, questionController.removeOption);
-
-router
-    .route(routes.CRUD_OPTIONS + '/:optionId')
-    .put(authenticate as RequestHandler, questionController.updateOptions);
-
-router
-    .route(routes.UPDATE_OPTIONS_ORDERS)
-    .put(
-        authenticate as RequestHandler,
-        questionController.updateOptionsOrders
-    );
 
 export default router;
