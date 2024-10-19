@@ -27,6 +27,8 @@ const routes = {
     CRUD_ANSWER: '/answers',
 
     CRUD_ANSWER_OPTIONS: '/answer-options',
+
+    CRUD_TEMPLATE_COMMENT: '/template/comments',
 };
 
 export default routes;

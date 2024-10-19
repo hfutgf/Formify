@@ -89,10 +89,10 @@
  *             properties:
  *               email:
  *                 type: string
- *                 example: example@gmail.com
+ *                 example: admin@gmail.com
  *               password:
  *                 type: string
- *                 example: password123
+ *                 example: test1234
  *     responses:
  *       200:
  *         description: Успешная регистрация
