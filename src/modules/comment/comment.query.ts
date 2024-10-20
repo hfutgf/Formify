@@ -12,7 +12,6 @@ export class CommentQuery extends CommonQuery {
             .from(modelNames.COMMENTS)
             .insert(body)
             .select('*');
-        console.log(error);
         if (error) throw new Error(error.message);
         return data[0];
     };

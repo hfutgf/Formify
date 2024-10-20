@@ -6,5 +6,16 @@ import form from './form/index.js';
 import answer from './answer/index.js';
 import option from './option/index.js';
 import comment from './comment/index.js';
+import like from './like/index.js';
 
-export default [user, auth, templates, question, form, answer, option, comment];
+export default [
+    user,
+    auth,
+    templates,
+    question,
+    form,
+    answer,
+    option,
+    comment,
+    like,
+];

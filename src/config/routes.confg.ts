@@ -29,6 +29,8 @@ const routes = {
     CRUD_ANSWER_OPTIONS: '/answer-options',
 
     CRUD_TEMPLATE_COMMENT: '/template/comments',
+
+    CURD_TEMPLATE_LIKES: '/template/likes',
 };
 
 export default routes;
