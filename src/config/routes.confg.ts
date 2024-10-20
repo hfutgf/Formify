@@ -31,6 +31,8 @@ const routes = {
     CRUD_TEMPLATE_COMMENT: '/template/comments',
 
     CURD_TEMPLATE_LIKES: '/template/likes',
+
+    CRUD_COMMENT_LIKES: '/comment/likes',
 };
 
 export default routes;

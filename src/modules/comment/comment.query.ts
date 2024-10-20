@@ -1,4 +1,4 @@
-import { Comment } from '@prisma/client';
+import { Comment, CommentLike } from '@prisma/client';
 import { CommonQuery } from '../common/query.js';
 import { modelNames } from '@src/config/models.config.js';
 
@@ -33,5 +33,36 @@ export class CommentQuery extends CommonQuery {
             .select('*');
         if (error) throw new Error(error.message);
         return data[0];
+    };
+
+    createCommentLike = async (body: CommentLike) => {
+        const { data, error } = await this.supabase
+            .from(modelNames.COMMENT_LIKES)
+            .insert(body)
+            .select('*');
+
+        if (error) throw new Error(error.message);
+        return data[0];
+    };
+
+    deleteCommentLike = async (likeId: number) => {
+        const { data, error } = await this.supabase
+            .from(modelNames.COMMENT_LIKES)
+            .delete()
+            .eq('id', likeId)
+            .select('*');
+
+        if (error) throw new Error(error.message);
+        return data[0];
+    };
+
+    getCommentLikes = async (commentId: number) => {
+        const { data, error } = await this.supabase
+            .from(modelNames.COMMENT_LIKES)
+            .select('*')
+            .eq('commentId', commentId);
+
+        if (error) throw new Error(error.message);
+        return data;
     };
 }

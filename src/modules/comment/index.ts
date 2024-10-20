@@ -18,4 +18,19 @@ router
     .route(routes.CRUD_TEMPLATE_COMMENT + '/:commentId')
     .delete(authenticate as RequestHandler, commentController.delete);
 
+router
+    .route(routes.CRUD_COMMENT_LIKES)
+    .post(authenticate as RequestHandler, commentController.createCommentLike);
+
+router
+    .route(routes.CRUD_COMMENT_LIKES + '/:likeId')
+    .delete(
+        authenticate as RequestHandler,
+        commentController.deleteCommentLike
+    );
+
+router
+    .route(routes.CRUD_COMMENT_LIKES + '/:commentId')
+    .get(authenticate as RequestHandler, commentController.getCommentLikes);
+
 export default router;

@@ -40,4 +40,41 @@ export class CommentController {
             res.status(500).json(e.message);
         }
     };
+
+    createCommentLike = async (req: Request, res: Response) => {
+        try {
+            const body = req.body;
+            const comment = await this.commentQuery.createCommentLike(body);
+            res.status(200).json(comment);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
+
+    deleteCommentLike = async (req: Request, res: Response) => {
+        try {
+            const { likeId } = req.params;
+            const comment = await this.commentQuery.deleteCommentLike(
+                Number(likeId)
+            );
+            res.status(200).json(comment);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
+
+    getCommentLikes = async (req: Request, res: Response) => {
+        try {
+            const { commentId } = req.params;
+            const comments = await this.commentQuery.getCommentLikes(
+                Number(commentId)
+            );
+            res.status(200).json(comments);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
 }

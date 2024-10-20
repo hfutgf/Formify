@@ -34,4 +34,14 @@ export class LikeQuery extends CommonQuery {
         if (error) throw new Error(error.message);
         return data;
     };
+
+    getLike = async (templateId: number, userId: number) => {
+        const { data, error } = await this.supabase
+            .from(modelNames.TEMPLATE_LIKES)
+            .select('*')
+            .eq('templateId', templateId)
+            .eq('userId', userId);
+        if (error) throw new Error(error.message);
+        return data[0];
+    };
 }

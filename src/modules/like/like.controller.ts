@@ -36,4 +36,18 @@ export class LikeController {
             res.status(500).json(e.message);
         }
     };
+
+    getLike = async (req: Request, res: Response) => {
+        try {
+            const { templateId, userId } = req.params;
+            const like = await this.likeQuery.getLike(
+                Number(templateId),
+                Number(userId)
+            );
+            res.status(200).json(like);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
 }

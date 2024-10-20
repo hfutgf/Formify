@@ -145,3 +145,52 @@
  *       500:
  *         description: Internal server error
  */
+
+/**
+ * @swagger
+ * /api/template/likes/{templateId}/{authorId}:
+ *   get:
+ *     summary: Get like information by template ID and author ID
+ *     tags: [Template likes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: templateId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the template
+ *       - in: path
+ *         name: authorId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the author (user who liked)
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved like information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 42
+ *                 userId:
+ *                   type: integer
+ *                   example: 1
+ *                 templateId:
+ *                   type: integer
+ *                   example: 5
+ *                 value:
+ *                   type: string
+ *                   example: "LIKE"
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Like not found
+ *       500:
+ *         description: Internal server error
+ */

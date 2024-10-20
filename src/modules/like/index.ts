@@ -18,4 +18,8 @@ router
     .route(routes.CURD_TEMPLATE_LIKES + '/:templateId')
     .get(authenticate as RequestHandler, likeController.getLikes);
 
+router
+    .route(routes.CURD_TEMPLATE_LIKES + '/:templateId' + '/:userId')
+    .get(authenticate as RequestHandler, likeController.getLike);
+
 export default router;
