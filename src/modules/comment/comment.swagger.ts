@@ -297,3 +297,50 @@
  *       500:
  *         description: Internal server error
  */
+
+/**
+ * @swagger
+ * /api/comment/likes/{commentId}/{userId}:
+ *   get:
+ *     summary: Get a single like for a specific comment by user
+ *     tags: [Comment likes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: commentId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the comment
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the user
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved the like
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 userId:
+ *                   type: integer
+ *                   example: 1
+ *                 commentId:
+ *                   type: integer
+ *                   example: 1
+ *                 value:
+ *                   type: string
+ *                   example: LIKE
+ *       404:
+ *         description: Like not found
+ *       500:
+ *         description: Internal server error
+ */

@@ -33,4 +33,8 @@ router
     .route(routes.CRUD_COMMENT_LIKES + '/:commentId')
     .get(authenticate as RequestHandler, commentController.getCommentLikes);
 
+router
+    .route(routes.CRUD_COMMENT_LIKES + '/:commentId' + '/:userId')
+    .get(authenticate as RequestHandler, commentController.getCommenLikeByUser);
+
 export default router;

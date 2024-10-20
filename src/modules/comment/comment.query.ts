@@ -65,4 +65,15 @@ export class CommentQuery extends CommonQuery {
         if (error) throw new Error(error.message);
         return data;
     };
+
+    getCommenLikeByUser = async (userId: number, commentId: number) => {
+        const { data, error } = await this.supabase
+            .from(modelNames.COMMENT_LIKES)
+            .select('*')
+            .eq('commentId', commentId)
+            .eq('userId', userId);
+
+        if (error) throw new Error(error.message);
+        return data[0];
+    };
 }

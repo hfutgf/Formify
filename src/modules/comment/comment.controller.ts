@@ -77,4 +77,18 @@ export class CommentController {
             res.status(500).json(e.message);
         }
     };
+
+    getCommenLikeByUser = async (req: Request, res: Response) => {
+        try {
+            const { commentId, userId } = req.params;
+            const comments = await this.commentQuery.getCommenLikeByUser(
+                Number(userId),
+                Number(commentId)
+            );
+            res.status(200).json(comments);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
 }
