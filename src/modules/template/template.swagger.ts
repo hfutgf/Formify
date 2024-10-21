@@ -400,3 +400,65 @@
  *       404:
  *         description: Template not found
  */
+
+/**
+ * @swagger
+ * /api/templates/{authorId}:
+ *   get:
+ *     summary: Get templates by user ID
+ *     tags: [Templates]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: authorId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the user whose templates you want to retrieve
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved templates
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 13
+ *                   authorId:
+ *                     type: integer
+ *                     example: 4
+ *                   title:
+ *                     type: string
+ *                     example: "My first template"
+ *                   description:
+ *                     type: string
+ *                     example: "Description about template"
+ *                   theme:
+ *                     type: string
+ *                     example: "SPORT"
+ *                   imageUrl:
+ *                     type: string
+ *                     format: url
+ *                     example: "https://example.com/image.png"
+ *                   isPublic:
+ *                     type: boolean
+ *                     example: true
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2024-10-18T17:08:12.145"
+ *                   updatedAt:
+ *                     type: string
+ *                     format: date-time
+ *                     nullable: true
+ *                     example: null
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */

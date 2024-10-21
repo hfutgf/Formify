@@ -118,4 +118,27 @@ export class TemplatesQuery extends UserQuery {
         }
         return data[0];
     };
+
+    userTemplates = async (authorId: number) => {
+        const themes = Object.values(Theme);
+        const templates = [];
+        for (let i = 0; i < themes.length; i++) {
+            const { data, error } = await this.supabase
+                .from(modelNames.TEMPLATES)
+                .select('*')
+                .eq('authorId', authorId)
+                .eq('theme', themes[i]);
+
+            if (data?.length) {
+                templates.push({
+                    theme: themes[i],
+                    data,
+                });
+            }
+            if (error) {
+                throw new Error(error.message);
+            }
+        }
+        return templates;
+    };
 }

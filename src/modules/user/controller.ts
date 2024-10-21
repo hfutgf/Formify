@@ -26,4 +26,30 @@ export class UserController {
             res.status(500).json(e.message);
         }
     };
+
+    getAllUsers = async (req: Request, res: Response) => {
+        try {
+            const { adminId } = req.params;
+            const users = await this.userQuery.getAllUsers(Number(adminId));
+            res.status(200).json(users);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
+
+    getUsersByRole = async (req: Request, res: Response) => {
+        try {
+            const { adminId } = req.params;
+            const { role } = req.query as { role: 'USER' | 'ADMIN' };
+            const users = await this.userQuery.getUsersByRole(
+                role,
+                Number(adminId)
+            );
+            res.status(200).json(users);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
 }

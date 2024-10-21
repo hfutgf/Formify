@@ -21,6 +21,10 @@ router
 router.route(routes.GET_TEMPLATES).get(templatesController.findAll);
 
 router
+    .route(routes.GET_TEMPLATES + '/:authorId')
+    .get(authenticate as RequestHandler, templatesController.getUserTemplates);
+
+router
     .route(routes.GET_TEMPLATE)
     .get(authenticate as RequestHandler, templatesController.findOne);
 

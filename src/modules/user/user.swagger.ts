@@ -123,3 +123,116 @@
  *       400:
  *         description: Invalid input data
  */
+
+/**
+ * @swagger
+ * /api/users/all/{adminId}:
+ *   get:
+ *     summary: Get all users (admin access required)
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: adminId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the admin user
+ *     responses:
+ *       200:
+ *         description: A list of all users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   fullName:
+ *                     type: string
+ *                     example: "John Doe"
+ *                   email:
+ *                     type: string
+ *                     example: "john.doe@example.com"
+ *                   role:
+ *                     type: string
+ *                     example: "USER"
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2024-10-20T17:08:12.145Z"
+ *                   updatedAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2024-10-20T17:08:12.145Z"
+ *       401:
+ *         description: Unauthorized, admin access required
+ *       404:
+ *         description: Admin not found
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/users/role/{adminId}:
+ *   get:
+ *     summary: Get users by role (admin access required)
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: adminId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the admin user
+ *       - in: query
+ *         name: role
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Role to filter users by (e.g., "USER", "ADMIN")
+ *         example: "USER"
+ *     responses:
+ *       200:
+ *         description: A list of users with the specified role
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   fullName:
+ *                     type: string
+ *                     example: "John Doe"
+ *                   email:
+ *                     type: string
+ *                     example: "john.doe@example.com"
+ *                   role:
+ *                     type: string
+ *                     example: "USER"
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2024-10-20T17:08:12.145Z"
+ *                   updatedAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2024-10-20T17:08:12.145Z"
+ *       401:
+ *         description: Unauthorized, admin access required
+ *       404:
+ *         description: Admin not found or no users with the specified role
+ *       500:
+ *         description: Internal server error
+ */
