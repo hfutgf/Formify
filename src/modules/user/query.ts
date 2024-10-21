@@ -1,4 +1,4 @@
-import { Role, Users } from '@prisma/client';
+import { Role, user_status, Users } from '@prisma/client';
 import { CommonQuery } from '../common/query.js';
 import argon from 'argon2';
 import { modelNames } from '@src/config/models.config.js';
@@ -102,5 +102,39 @@ export class UserQuery extends CommonQuery {
 
         if (error) throw new Error(error.message);
         return data;
+    };
+
+    deleteUser = async (adminId: number, userId: number) => {
+        const admin = await this.getById(adminId);
+        if (admin.role !== Role.ADMIN) {
+            throw new Error('You are not an administrator');
+        }
+        const { data, error } = await this.supabase
+            .from(modelNames.USERS)
+            .delete()
+            .eq('id', userId)
+            .select('*');
+
+        if (error) throw new Error(error.message);
+        return data[0];
+    };
+
+    updateFromAdmin = async (
+        adminId: number,
+        userId: number,
+        body: { status?: user_status; role?: Role }
+    ) => {
+        const admin = await this.getById(adminId);
+        if (admin.role !== Role.ADMIN) {
+            throw new Error('You are not an administrator');
+        }
+        const { data, error } = await this.supabase
+            .from(modelNames.USERS)
+            .update(body)
+            .eq('id', userId)
+            .select('*');
+
+        if (error) throw new Error(error.message);
+        return data[0];
     };
 }

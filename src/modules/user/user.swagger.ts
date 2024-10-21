@@ -236,3 +236,142 @@
  *       500:
  *         description: Internal server error
  */
+
+/**
+ * @swagger
+ * /api/users/{adminId}/{userId}:
+ *   delete:
+ *     summary: Delete a user by ID
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: adminId
+ *         required: true
+ *         description: ID of the admin making the request
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: ID of the user to delete
+ *         schema:
+ *           type: integer
+ *           example: 2
+ *     responses:
+ *       200:
+ *         description: Successfully deleted the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 2
+ *                 fullName:
+ *                   type: string
+ *                   example: "Jasurbek Mansuralieyv"
+ *                 email:
+ *                   type: string
+ *                   example: "jasurbek@gmail.com"
+ *                 password:
+ *                   type: string
+ *                   example: "$argon2id$v=19$m=65536,t=3,p=4$xb76DlZWNUdqZ4PKdFSPww$tVFJ/wWsQAeo0OaIe5A0TORuW3UFckgoLunPUQS7F3M"
+ *                 role:
+ *                   type: string
+ *                   example: "USER"
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2024-10-14T23:09:02.403"
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *                   nullable: true
+ *                   example: null
+ *       404:
+ *         description: User not found
+ *       403:
+ *         description: Forbidden, admin does not have permission to delete this user
+ */
+
+/**
+ * @swagger
+ * /api/users/{adminId}/{userId}:
+ *   put:
+ *     summary: Update a user's status and role by user ID
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: adminId
+ *         required: true
+ *         description: ID of the admin making the request
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: ID of the user to update
+ *         schema:
+ *           type: integer
+ *           example: 2
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [ACTIVE, BLOCK]
+ *                 example: "ACTIVE"
+ *               role:
+ *                 type: string
+ *                 enum: [USER, ADMIN]
+ *                 example: "USER"
+ *     responses:
+ *       200:
+ *         description: Successfully updated the user's status and role
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 2
+ *                 fullName:
+ *                   type: string
+ *                   example: "John Doe"
+ *                 email:
+ *                   type: string
+ *                   example: "johndoe@example.com"
+ *                 status:
+ *                   type: string
+ *                   enum: [ACTIVE, BLOCK]
+ *                   example: "ACTIVE"
+ *                 role:
+ *                   type: string
+ *                   enum: [USER, ADMIN]
+ *                   example: "USER"
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2024-10-14T23:09:02.403"
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *                   nullable: true
+ *                   example: "2024-10-18T17:08:12.145"
+ *       404:
+ *         description: User not found
+ *       400:
+ *         description: Invalid input data
+ */

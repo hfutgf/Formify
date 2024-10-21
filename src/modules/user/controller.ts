@@ -52,4 +52,34 @@ export class UserController {
             res.status(500).json(e.message);
         }
     };
+
+    delete = async (req: Request, res: Response) => {
+        try {
+            const { adminId, userId } = req.params;
+            const user = await this.userQuery.deleteUser(
+                Number(adminId),
+                Number(userId)
+            );
+            res.status(200).json(user);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
+
+    updateFromAdmin = async (req: Request, res: Response) => {
+        try {
+            const { adminId, userId } = req.params;
+            const body = req.body;
+            const user = await this.userQuery.updateFromAdmin(
+                Number(adminId),
+                Number(userId),
+                body
+            );
+            res.status(200).json(user);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
 }
