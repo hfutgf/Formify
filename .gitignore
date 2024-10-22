@@ -19,9 +19,9 @@ node_modules/
 .pnpm-debug.log
 yarn-error.log
 
-# TypeScript configuration
-tsconfig.json
-tsconfig.tsbuildinfo
+# # TypeScript configuration
+# tsconfig.json
+# tsconfig.tsbuildinfo
 
 # Nodemon configuration
 nodemon.json
