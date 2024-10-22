@@ -16,7 +16,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use(
     cors({
-        origin: process.env.CLIENT_URL,
+        origin: "https://client-two-mauve.vercel.app",
         credentials: true,
     })
 );
