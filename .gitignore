@@ -31,3 +31,4 @@ nodemon.json
 
 # Windows
 Thumbs.db
+.vercel
