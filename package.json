@@ -5,7 +5,7 @@
     "main": "dist/index.js",
     "type": "module",
     "scripts": {
-        "build": "rimraf dist && npx tsc && tsc-alias",
+        "build": "rimraf dist && npx tsc && tsc-alias && npx prisma generate",
         "dev": "nodemon",
         "prestart": "pnpm build",
         "start": "node dist/index.js",

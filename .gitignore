@@ -20,8 +20,8 @@ node_modules/
 yarn-error.log
 
 # # TypeScript configuration
-tsconfig.json
-tsconfig.tsbuildinfo
+# tsconfig.json
+# tsconfig.tsbuildinfo
 
 # Nodemon configuration
 nodemon.json
