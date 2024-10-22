@@ -462,3 +462,65 @@
  *       500:
  *         description: Internal server error
  */
+
+/**
+ * @swagger
+ * /api/theme/templates:
+ *   get:
+ *     summary: Get templates by theme
+ *     tags: [Templates]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: theme
+ *         required: true
+ *         description: The theme of the templates to retrieve
+ *         schema:
+ *           type: string
+ *           example: "SPORT"
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved templates by theme
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   authorId:
+ *                     type: integer
+ *                     example: 2
+ *                   title:
+ *                     type: string
+ *                     example: "Sports Event Template"
+ *                   description:
+ *                     type: string
+ *                     nullable: true
+ *                     example: "A template for organizing sports events."
+ *                   theme:
+ *                     type: string
+ *                     example: "SPORT"
+ *                   imageUrl:
+ *                     type: string
+ *                     nullable: true
+ *                     example: "https://example.com/sports-event.jpg"
+ *                   isPublic:
+ *                     type: boolean
+ *                     example: true
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2024-10-22T10:00:00Z"
+ *                   updatedAt:
+ *                     type: string
+ *                     format: date-time
+ *                     nullable: true
+ *                     example: "2024-10-22T12:00:00Z"
+ *       404:
+ *         description: No templates found for the specified theme
+ */

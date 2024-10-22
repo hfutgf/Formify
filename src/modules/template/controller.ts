@@ -136,4 +136,16 @@ export class TemplaesController extends CommonController {
             res.status(500).json(e.message);
         }
     };
+
+    getByTheme = async (req: Request, res: Response) => {
+        try {
+            const { theme } = req.query as { theme: string };
+            const tempaltes =
+                await this.templatesQuery.usersFilterByTheme(theme);
+            res.status(200).json(tempaltes);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
 }

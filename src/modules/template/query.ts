@@ -141,4 +141,18 @@ export class TemplatesQuery extends UserQuery {
         }
         return templates;
     };
+
+    usersFilterByTheme = async (theme: string) => {
+        const { data, error } = await this.supabase
+            .from(modelNames.TEMPLATES)
+            .select('*')
+            .eq('theme', theme);
+        if (error) {
+            throw new Error(error.message);
+        }
+        return {
+            theme,
+            data,
+        };
+    };
 }

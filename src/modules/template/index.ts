@@ -25,6 +25,10 @@ router
     .get(authenticate as RequestHandler, templatesController.getUserTemplates);
 
 router
+    .route('/theme' + routes.GET_TEMPLATES)
+    .get(authenticate as RequestHandler, templatesController.getByTheme);
+
+router
     .route(routes.GET_TEMPLATE)
     .get(authenticate as RequestHandler, templatesController.findOne);
 
