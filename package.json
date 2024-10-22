@@ -7,7 +7,7 @@
     "scripts": {
         "build": "rimraf dist && npx tsc && tsc-alias",
         "dev": "nodemon",
-        "prestart": "npm run build",
+        "prestart": "pnpm build",
         "start": "node dist/index.js",
         "db:migrate": "npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
         "db:push": "npx prisma db push",
