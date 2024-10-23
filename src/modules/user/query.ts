@@ -4,7 +4,7 @@ import argon from 'argon2';
 import { modelNames } from '@src/config/models.config.js';
 
 export class UserQuery extends CommonQuery {
-    getByEmail = async (email: string) => {
+    getByEmail = async (email: string): Promise<Users> => {
         const { data, error } = await this.supabase
             .from(modelNames.USERS)
             .select('*')

@@ -30,6 +30,9 @@ export class AuthQuery extends UserQuery {
         if (!verifyPassword) {
             throw new Error('Passwrod is wrong!');
         }
+        if (user.status === 'BLOCK') {
+            throw new Error('User is blocked!');
+        }
         const tokens = this.issueToken(user.id);
         return {
             data,
