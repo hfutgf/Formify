@@ -24,6 +24,7 @@ export class AuthController {
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
                 httpOnly: false,
                 maxAge: 7 * 86400 * 1000,
+                sameSite: true,
             });
             res.status(201).json(data);
         } catch (error) {
@@ -39,6 +40,7 @@ export class AuthController {
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
                 httpOnly: false,
                 maxAge: 7 * 86400 * 1000,
+                sameSite: true,
             });
             res.status(200).json(data);
         } catch (error) {
