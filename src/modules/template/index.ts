@@ -11,29 +11,29 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 router
-    .route(routes.CREATE_TEMPLATE)
+    .route(routes.CURD_TEMPLATES)
     .post(
         authenticate as RequestHandler,
         upload.single('file'),
         templatesController.create as any
     );
 
-router.route(routes.GET_TEMPLATES).get(templatesController.findAll);
+router.route(routes.CURD_TEMPLATES).get(templatesController.findAll);
 
 router
-    .route(routes.GET_TEMPLATE)
+    .route(routes.CURD_TEMPLATES + '/:templateId')
     .get(authenticate as RequestHandler, templatesController.findOne);
 
 router
-    .route('/user' + routes.GET_TEMPLATES + '/:authorId')
+    .route('/user' + routes.CURD_TEMPLATES + '/:authorId')
     .get(authenticate as RequestHandler, templatesController.getUserTemplates);
 
 router
-    .route('/theme' + routes.GET_TEMPLATES)
+    .route('/theme' + routes.CURD_TEMPLATES)
     .get(authenticate as RequestHandler, templatesController.getByTheme);
 
 router
-    .route(routes.UPDATE_TEMPLATE)
+    .route(routes.CURD_TEMPLATES + '/:templateId')
     .put(
         authenticate as RequestHandler,
         upload.single('file'),
@@ -41,7 +41,7 @@ router
     );
 
 router
-    .route(routes.REMOVE_TEMPLATE)
+    .route(routes.CURD_TEMPLATES + '/:templateId')
     .delete(authenticate as RequestHandler, templatesController.remove as any);
 
 router.route(routes.SEARCH_TEMPLATES).get(templatesController.search);
