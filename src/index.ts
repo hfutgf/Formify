@@ -16,7 +16,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use(
     cors({
-        origin: "https://client-two-mauve.vercel.app",
+        origin: 'https://client-two-mauve.vercel.app',
         // origin: 'http://localhost:5173',
         credentials: true,
     })
