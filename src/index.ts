@@ -17,6 +17,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(
     cors({
         origin: "https://client-two-mauve.vercel.app",
+        // origin: 'http://localhost:5173',
         credentials: true,
     })
 );
@@ -26,8 +27,8 @@ app.use(cookieParser());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api', modules);
 
-// const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
-// server.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
+server.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
 
 export default server;

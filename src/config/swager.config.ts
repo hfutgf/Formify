@@ -8,11 +8,6 @@ const swaggerOptions = {
             contact: {
                 email: 'jasurbekmansuraliyev@gmail.com',
             },
-            servers: [
-                {
-                    url: process.env.HOST,
-                },
-            ],
         },
     },
     apis: ['./src/modules/**/*.ts'],
