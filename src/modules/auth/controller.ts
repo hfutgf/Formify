@@ -25,6 +25,7 @@ export class AuthController {
                 httpOnly: false,
                 maxAge: 7 * 86400 * 1000,
                 sameSite: 'none',
+                secure: true,
             });
             res.status(201).json(data);
         } catch (error) {
@@ -41,6 +42,7 @@ export class AuthController {
                 httpOnly: false,
                 maxAge: 7 * 86400 * 1000,
                 sameSite: 'none',
+                secure: true,
             });
             res.status(200).json(data);
         } catch (error) {
