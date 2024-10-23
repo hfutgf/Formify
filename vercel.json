@@ -3,6 +3,18 @@
     "buildCommand": "pnpm install && pnpm prisma generate && pnpm build",
     "installCommand": "pnpm install",
     "outputDirectory": "dist",
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "https://client-two-mauve.vercel.app"
+                },
+                { "key": "Access-Control-Allow-Credentials", "value": "true" }
+            ]
+        }
+    ],
     "builds": [
         {
             "src": "dist/index.js",
