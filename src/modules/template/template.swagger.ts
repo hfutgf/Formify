@@ -403,7 +403,7 @@
 
 /**
  * @swagger
- * /api/templates/{authorId}:
+ * /api/user/templates/{authorId}:
  *   get:
  *     summary: Get templates by user ID
  *     tags: [Templates]

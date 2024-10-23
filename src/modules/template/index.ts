@@ -21,16 +21,16 @@ router
 router.route(routes.GET_TEMPLATES).get(templatesController.findAll);
 
 router
-    .route(routes.GET_TEMPLATES + '/:authorId')
+    .route(routes.GET_TEMPLATE)
+    .get(authenticate as RequestHandler, templatesController.findOne);
+
+router
+    .route('/user' + routes.GET_TEMPLATES + '/:authorId')
     .get(authenticate as RequestHandler, templatesController.getUserTemplates);
 
 router
     .route('/theme' + routes.GET_TEMPLATES)
     .get(authenticate as RequestHandler, templatesController.getByTheme);
-
-router
-    .route(routes.GET_TEMPLATE)
-    .get(authenticate as RequestHandler, templatesController.findOne);
 
 router
     .route(routes.UPDATE_TEMPLATE)
