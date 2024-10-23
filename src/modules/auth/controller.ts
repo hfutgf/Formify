@@ -22,6 +22,7 @@ export class AuthController {
             const { refreshToken, ...data } =
                 await this.authQuery.register(body);
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
+                domain: 'https://server-umber.vercel.app',
                 httpOnly: false,
                 maxAge: 7 * 86400 * 1000,
                 sameSite: 'none',
@@ -40,6 +41,7 @@ export class AuthController {
             const { refreshToken, ...data } = await this.authQuery.login(body);
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
                 domain: 'https://server-umber.vercel.app',
+                httpOnly: false,
                 maxAge: 7 * 86400 * 1000,
                 sameSite: 'none',
                 secure: true,
@@ -83,9 +85,9 @@ export class AuthController {
             );
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
                 httpOnly: true,
-                maxAge: 7 * 1000 * 86400,
                 sameSite: 'none',
                 secure: true,
+                maxAge: 7 * 1000 * 86400,
             });
             res.status(200).json({ accessToken });
         } catch (error) {
