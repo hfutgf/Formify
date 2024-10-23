@@ -84,6 +84,8 @@ export class AuthController {
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
                 httpOnly: true,
                 maxAge: 3 * 86400,
+                sameSite: 'none',
+                secure: true,
             });
             res.status(200).json({ accessToken });
         } catch (error) {
