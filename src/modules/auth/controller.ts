@@ -39,7 +39,7 @@ export class AuthController {
             const body = req.body;
             const { refreshToken, ...data } = await this.authQuery.login(body);
             res.cookie(this.REFRESH_TOKEN, refreshToken, {
-                domain: 'https://client-two-mauve.vercel.app',
+                domain: 'https://server-umber.vercel.app',
                 maxAge: 7 * 86400 * 1000,
                 sameSite: 'none',
                 secure: true,
