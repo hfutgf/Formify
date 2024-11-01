@@ -96,15 +96,39 @@ export class TemplatesQuery extends UserQuery {
         return null;
     };
 
-    searchTemplate = async (title: string) => {
+    searchTemplate = async (text: string) => {
         const { data, error } = await this.supabase
             .from(modelNames.TEMPLATES)
             .select('*')
-            .ilike('title', `%${title}%`);
-        if (error) {
-            throw new Error(error.message);
+            .or(`title.ilike.%${text}%,description.ilike.%${text}%`);
+
+        const { data: commentData, error: commentError } = await this.supabase
+            .from(modelNames.COMMENTS)
+            .select('templateId')
+            .ilike('content', `%${text}%`);
+
+        if (commentError) {
+            throw new Error(commentError.message);
         }
-        return data;
+
+        if (!commentData || commentData.length === 0) {
+            return data;
+        }
+
+        const templateIds = commentData.map((comment) => comment.templateId);
+        const { data: templateData, error: templateError } = await this.supabase
+            .from(modelNames.TEMPLATES)
+            .select('*')
+            .in('id', templateIds);
+
+        if (templateError) {
+            throw new Error(templateError.message);
+        }
+
+        if (error) {
+            throw new Error(error?.message);
+        }
+        return [...templateData, ...data];
     };
 
     removeTemplateImage = async (templateId: number) => {
