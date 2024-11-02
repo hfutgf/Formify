@@ -21,6 +21,10 @@ router
 router.route(routes.CURD_TEMPLATES).get(templatesController.findAll);
 
 router
+    .route(routes.CURD_TEMPLATES + '/all' + '/:adminId')
+    .get(authenticate as RequestHandler, templatesController.getTemplates);
+
+router
     .route(routes.CURD_TEMPLATES + '/:templateId')
     .get(authenticate as RequestHandler, templatesController.findOne);
 

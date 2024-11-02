@@ -148,4 +148,17 @@ export class TemplaesController extends CommonController {
             res.status(500).json(e.message);
         }
     };
+
+    getTemplates = async (req: Request, res: Response) => {
+        try {
+            const { adminId } = req.params;
+            const tempaltes = await this.templatesQuery.getTemplates(
+                Number(adminId)
+            );
+            res.status(200).json(tempaltes);
+        } catch (error) {
+            const e = error as Error;
+            res.status(500).json(e.message);
+        }
+    };
 }

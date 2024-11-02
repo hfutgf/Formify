@@ -174,9 +174,28 @@ export class TemplatesQuery extends UserQuery {
         if (error) {
             throw new Error(error.message);
         }
-        return {
-            theme,
-            data,
-        };
+        return data;
+    };
+
+    getTemplates = async (adminId: number) => {
+        const { data: admin, error: adminError } = await this.supabase
+            .from(modelNames.USERS)
+            .select('*')
+            .eq('id', adminId)
+            .single();
+
+        if (adminError) {
+            throw new Error(adminError.message);
+        }
+        if (admin.role !== Role.ADMIN) {
+            throw new Error('You are not an admin');
+        }
+        const { data, error } = await this.supabase
+            .from(modelNames.TEMPLATES)
+            .select('*');
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;
     };
 }
